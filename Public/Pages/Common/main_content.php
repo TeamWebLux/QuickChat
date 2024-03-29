@@ -20,7 +20,7 @@
                </div>
             </div>
             <!--logo End-->
-            <h4 class="logo-title d-block d-xl-none">CustCount </h4>
+            <h4 class="logo-title d-block d-xl-none">QuickChat</h4>
          </a>
          <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
             <i class="icon d-flex">
@@ -154,7 +154,7 @@
                                     <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="../assets/images/shapes/02.png" alt="" loading="lazy">
                                  </div>
                                  <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">New customer is join</h6>
+                                    <h6 class="mb-0 ">New omer is join</h6>
                                     <div class="d-flex justify-content-between align-items-center">
                                        <p class="mb-0">Cyst Bni</p>
                                        <small class="float-end font-size-12">5 days ago</small>
