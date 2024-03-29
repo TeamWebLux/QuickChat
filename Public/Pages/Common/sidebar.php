@@ -69,13 +69,6 @@
                     <hr class="hr-horizontal">
                 </li>
 
-
-
-
-
-
-
-
                 <?php if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) : ?>
 
 
