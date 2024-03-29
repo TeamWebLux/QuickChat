@@ -4,12 +4,12 @@ ob_start();
 # server name
 $sName = "193.203.184.53";
 # user name
-$uName = "u306273205_cc";
+$uName = "u306273205_QuickChat";
 # password
 $pass = "Weblux@@1122";
 
 # database name
-$db_name = "u306273205_cc";
+$db_name = "u306273205_QuickChat";
 
 #creating database connection
 try {

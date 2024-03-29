@@ -2,9 +2,9 @@
 ob_start();
 
 $servername = "193.203.184.53"; // or your server name
-$username = "u306273205_cc";
+$username = "u306273205_QuickChat";
 $password = "Weblux@@1122";
-$dbname = "u306273205_cc";
+$dbname = "u306273205_QuickChat";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
