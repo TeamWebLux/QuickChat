@@ -1,7 +1,7 @@
 <?php
 ob_start();
 
-$servername = "193.203.184.53"; // or your server name
+$servername = "localhost"; // or your server name
 $username = "sweeps_trac";
 $password = "Weblux@@1122";
 $dbname = "sweeps_trac";

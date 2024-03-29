@@ -2,7 +2,7 @@
 ob_start();
 
 # server name
-$sName = "193.203.184.53";
+$sName = "localhost";
 # user name
 $uName = "sweeps_trac";
 # password
