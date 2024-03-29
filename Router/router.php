@@ -12,7 +12,6 @@ if ($uri == $firstparam || $uri == $secondparam) {
     </script>';
     die();
 } else {
-
     $prefix = $thirdparam;
     $root = $fourthparam;
     $routes = [
