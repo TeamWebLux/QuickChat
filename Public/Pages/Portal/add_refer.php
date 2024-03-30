@@ -28,20 +28,20 @@
     }
     include './App/db/db_connect.php';
 
-    $referName=$_GET['u'];
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $name=$referName;
-        $amount=$_POST['amount'];
-        $type="Referred Bonus";
-        $byname=$_SESSION['username'];
-        $trans="Credit";
+        $referName = $_POST['username'];
+        $amount = $_POST['amount'];
+        $type = "Referred Bonus";
+        $byname = $_SESSION['username'];
+        $trans = "Credit";
 
-        $sql="Insert into referrecord (username,amount,type,byname,trans) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO referrecord (username, amount, type, byname, trans) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdsss", $username, $amount, $type, $byname, $trans);
+        $stmt->bind_param("sdsss", $referName, $amount, $type, $byname, $trans);
+        $stmt->execute();
 
-
-
+        // Display success toast
+        echoToastScript('success', 'Record inserted successfully');
     }
 
 
@@ -81,7 +81,7 @@
                             <div class="card-body">
                                 <form action="" method="POST">
 
-                                <div class="mb-3">
+                                    <div class="mb-3">
                                         <label for="referralPercentage" class="form-label">UserName </label>
                                         <input type="text" class="form-control" id="referralPercentage" name="username" required value="<?php echo htmlspecialchars($referName); ?>" readonly>
                                     </div>
