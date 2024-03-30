@@ -1,5 +1,5 @@
 function checkForNewMessages() {
-    fetch('../checkNewMessages.php')
+    fetch('../Public/Chats/checkNewMessages.php')
         .then(response => response.json())
         .then(data => {
             if (data.newMessages) {
