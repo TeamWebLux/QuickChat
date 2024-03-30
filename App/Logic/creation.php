@@ -352,16 +352,17 @@ class Creation
             $userData=$this->getUserDataByUsername($username);
             $branchId=$userData['branchname'];
             $pagename=$userData['pagename'];
+            $byrole=$this->srole;
 
 
 
             $type = "Debit"; // Adjust the type as needed
 
-            $sql = "INSERT INTO transaction (username, recharge, page_id,page, platform,branch, cashapp, bonus, remark, by_id, by_u, type, created_at, updated_at)
-                    VALUES (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, NOW(), NOW())";
+            $sql = "INSERT INTO transaction (username, recharge, page_id,page, platform,branch, cashapp, bonus, remark, by_id,by_role, by_u, type, created_at, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?, NOW(), NOW())";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("ssssssssssss", $username, $recharge, $pageId, $pagename, $platform, $branchId, $cashName, $bonus, $remark, $byId, $byUsername, $type);
+                $stmt->bind_param("sssssssssssss", $username, $recharge, $pageId, $pagename, $platform, $branchId, $cashName, $bonus, $remark, $byId,$byrole, $byUsername, $type);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Recharge Added Sucessfully '];
