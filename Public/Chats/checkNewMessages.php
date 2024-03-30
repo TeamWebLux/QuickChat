@@ -17,7 +17,7 @@ if (isset($_SESSION['user_id'])) {
     $id_1 = $_SESSION['user_id'];
 
     // Database connection
-    include "./Public/Pages/Chat/app/db.conn.php"; // Ensure this path is correct
+    include "../Pages/Chat/app/db.conn.php"; // Ensure this path is correct
 
     $sql = "SELECT COUNT(chat_id) AS newMessages FROM chats WHERE to_id=? AND opened=0";
     $stmt = $conn->prepare($sql);
