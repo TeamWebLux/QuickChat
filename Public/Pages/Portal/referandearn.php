@@ -172,14 +172,9 @@
 
             // Generate the referral link
             $referralLink = "https://quickchat.sweepstrac.net/index.php/Register_to_CustCount?r=" . $refercode . "&p=" . $page;
-
-
-            // Generate the referral link
-
             ?>
             <br> <br>
             <br>
-
             <div class="container py-5">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
