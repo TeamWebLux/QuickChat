@@ -7,8 +7,7 @@ session_start();
 include '../db/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // $username = $conn->real_escape_string($_POST['username']);
-    $username=$_POST['username'];
+    $username = $conn->real_escape_string($_POST['username']);
     $password = $_POST['password'];
 
     // Retain the username in session for repopulating the form upon failure
