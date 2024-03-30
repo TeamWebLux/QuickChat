@@ -25,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     $refercode = generateReferralCode($fullname, $conn);
     
     $role = trim($_POST['role']);
-    if($role=="User"){
-    $referby=getUsernameByReferralCode($conn,$ref);}
+    $referby=getUsernameByReferralCode($conn,$ref);
 
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
 
@@ -91,7 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
 
         if ($stmt->execute()) {
             setToast('success', 'New record created successfully.');
-            processReferralCode($conn,$username,$ref);
+            if($role=='User'){
+            processReferralCode($conn,$username,$ref);}
 
             $redirectTo = '../../index.php/Portal'; // Success: Redirect to the home page or dashboard
         } else {
