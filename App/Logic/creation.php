@@ -329,7 +329,7 @@ class Creation
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Validate input fields
-            if (empty($_POST['username']) || empty($_POST['platformname']) || empty($_POST['cashAppname']) || empty($_POST['bonusamount'])) {
+            if (empty($_POST['username']) || empty($_POST['platformname']) || empty($_POST['cashAppname']) ) {
                 echo "Validation failed. Redirecting...<br>";
                 echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
 
