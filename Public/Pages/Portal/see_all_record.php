@@ -200,10 +200,7 @@
                             // Example: $customStartTime = $_GET['custom_start_time']; $customEndTime = $_GET['custom_end_time'];
                         }
                     }
-            
-
-echo $sql;
-                    $stmt = $conn->prepare($sql);
+                                $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
                     $stmt->execute();
 
