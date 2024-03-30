@@ -178,7 +178,7 @@
                         // Only start date is provided
                         $start_date = $_SESSION['start_date'];
                         $sql .= " AND created_at >= '$start_date 00:00:00'";
-                    } elseif (!isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
+                    } elseif (isset($_SESSION['start_date']) && isset($_SESSION['end_date']) && $_SESSION['end_date'] !== '') {
                         // Only end date is provided
                         $end_date = $_SESSION['end_date'];
                         $sql .= " AND created_at <= '$end_date 23:59:59'";
