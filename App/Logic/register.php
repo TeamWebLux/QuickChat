@@ -23,9 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     $password = trim($_POST['password']);
     $ref = isset($_POST['rfc']) ? $_POST['rfc'] : null;
     $refercode = generateReferralCode($fullname, $conn);
-    $referby=getUsernameByReferralCode($conn,$ref);
-
+    
     $role = trim($_POST['role']);
+    if($role=="User"){
+    $referby=getUsernameByReferralCode($conn,$ref);}
+
     $termsAccepted = isset($_POST['terms']) && $_POST['terms'] == 'on';
 
     // Additional fields
@@ -42,10 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
         $creationInstance = new Creation($conn);
         $branchId = $creationInstance->getBranchNameByPageName($pageId, $conn);
     }
-    echo $branchId, $pageId;
-    print_r("the bra" . $branchId);
-    print_r($_POST);
-    // Get the user's IP address
     $ipAddress = $_SERVER['REMOTE_ADDR'];
 
     // Validate inputs are not empty
