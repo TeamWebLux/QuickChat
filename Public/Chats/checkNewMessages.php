@@ -21,4 +21,7 @@ if (isset($_SESSION['user_id'])) {
 } else {
     echo json_encode(['newMessages' => false]);
 }
+ob_end_clean(); // Discard the buffer
+echo json_encode(['newMessages' => $result['newMessages'] > 0]); // Output your JSON
+
 ?>
