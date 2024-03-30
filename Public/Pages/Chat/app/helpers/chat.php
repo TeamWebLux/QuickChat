@@ -7,7 +7,7 @@ function getChats($id_1, $id_2, $conn){
         
            ORDER BY chat_id ASC";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$id_1, $id_1]);
+    $stmt->execute([$id_2, $id_2]);
 
     if ($stmt->rowCount() > 0) {
     	$chats = $stmt->fetchAll();
