@@ -56,7 +56,7 @@ function getUserDataByUsername($username, $conn)
     $username = ($username);
 
     // SQL query to retrieve user data by username
-    $query = "SELECT * FROM user WHERE uid = $username";
+    $query = "SELECT * FROM user WHERE id = $username";
 
     // Execute the query
     $result = $conn->query($query);
