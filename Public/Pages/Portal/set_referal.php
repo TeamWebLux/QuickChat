@@ -193,7 +193,7 @@
                                                     <td><?= htmlspecialchars($row['afilated_by']); ?></td>
                                                     <td><?= htmlspecialchars($row['created_at']); ?></td>
                                                     <td> <a href="./Add_Refer?u=<?php echo $username; ?>" style="text-decoration: none;">
-                                                            <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Branch Details</button>
+                                                            <button type="button" class="btn btn-danger rounded-pill mt-2">Send Refer</button>
                                                         </a>
                                                     </td>
                                                 </tr>
