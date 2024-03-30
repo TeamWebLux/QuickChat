@@ -56,7 +56,7 @@
         $referralPercentage = filter_var($referralPercentage, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $affiliatePercentage = filter_var($affiliatePercentage, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $minimum = filter_var($minimum, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $ref = filter_var($ref, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $ref = filter_var($ref);
 
 
         // Update the referral_bonus table
@@ -125,8 +125,6 @@
                                         <option value="" disabled hidden>Select CashAPP</option>
                                         <option name="ref" value="percent">By Percentage  </option>
                                         <option name="ref" value="amount">By Amount  </option>
-
-
                                     </select>
 
 
