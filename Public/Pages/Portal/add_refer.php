@@ -39,8 +39,14 @@
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sdsss", $referName, $amount, $type, $byname, $trans);
         if ($stmt->execute()) {
-            echoToastScript('success', 'Record inserted successfully');
             header("Location: ./Set_Refer");
+            echoToastScript('success', 'Record inserted successfully');
+        }else{
+            header("Location: " . $_SERVER['PHP_SELF']);
+            echoToastScript('error', 'Record Not inserted ');
+
+
+
         }
 
         // Display success toast
