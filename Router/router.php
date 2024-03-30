@@ -16,7 +16,6 @@ if ($uri == $firstparam || $uri == $secondparam) {
     $root = $fourthparam;
     $routes = [
 
-        //? This is Routes which will automatically routed when index page is loaded..
 
         $prefix . $root . '/Login_to_CustCount'                    => './Public/Pages/Signing/login/login.php',
         $prefix . $root . '/Register_to_CustCount'                 => './Public/Pages/Signing/register/register.php',

@@ -31,7 +31,7 @@
     // Initialize variables
     $referralPercentage = '';
     $affiliatePercentage = '';
-    $minimum ='';
+    $minimum = '';
 
     // Fetch the existing bonus rates
     $fetchQuery = "SELECT * FROM refferal_bonus LIMIT 1";
@@ -42,31 +42,32 @@
         $referralPercentage = $existingData['referal'];
         $affiliatePercentage = $existingData['affiliate'];
         $minimum = $existingData['minimum'];
-
-
     }
 
     // Check if form is submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Get new bonus percentages from the form
         $referralPercentage = $_POST['referralPercentage'];
         $affiliatePercentage = $_POST['affiliatePercentage'];
-        $minimum=$_POST['minimum'];
+        $minimum = $_POST['minimum'];
+        $ref=$_POST['ref'];
 
         // Sanitize input
         $referralPercentage = filter_var($referralPercentage, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $affiliatePercentage = filter_var($affiliatePercentage, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $minimum = filter_var($minimum, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $ref = filter_var($ref, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+
 
         // Update the referral_bonus table
         if ($existingData) {
-            $updateQuery = "UPDATE refferal_bonus SET referal = ?, affiliate = ?,minimum=? WHERE id = ?";
+            $updateQuery = "UPDATE refferal_bonus SET referal = ?, affiliate = ?,minimum=?,ref=? WHERE id = ?";
             $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param("dddi", $referralPercentage, $affiliatePercentage,$minimum, $existingData['id']);
+            $stmt->bind_param("dddsi", $referralPercentage, $affiliatePercentage, $minimum,$ref, $existingData['id']);
         } else {
-            $insertQuery = "INSERT INTO refferal_bonus (referal, affiliate,minimum) VALUES (?, ?,?)";
+            $insertQuery = "INSERT INTO refferal_bonus (referal, affiliate,minimum,ref) VALUES (?, ?,?,?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ddd", $referralPercentage, $affiliatePercentage,$minimum);
+            $stmt->bind_param("ddds", $referralPercentage, $affiliatePercentage, $minimum,$ref);
         }
 
         if ($stmt->execute()) {
@@ -120,12 +121,21 @@
                             </div>
                             <div class="card-body">
                                 <form action="" method="POST">
+                                    <select class="select2-basic-single js-states form-select form-control" name="ref" id="userSelect" style="width: 100%;" required>
+                                        <option value="" disabled hidden>Select CashAPP</option>
+                                        <option name="ref" value="percent">By Percentage  </option>
+                                        <option name="ref" value="amount">By Amount  </option>
+
+
+                                    </select>
+
+
                                     <div class="mb-3">
-                                        <label for="referralPercentage" class="form-label">Referral Bonus Percentage</label>
+                                        <label for="referralPercentage" class="form-label">Referral Bonus </label>
                                         <input type="text" class="form-control" id="referralPercentage" name="referralPercentage" required value="<?php echo htmlspecialchars($referralPercentage); ?>">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="affiliatePercentage" class="form-label">Affiliate Bonus Percentage</label>
+                                        <label for="affiliatePercentage" class="form-label">Affiliate Bonus </label>
                                         <input type="text" class="form-control" id="affiliatePercentage" name="affiliatePercentage" required value="<?php echo htmlspecialchars($affiliatePercentage); ?>">
                                     </div>
                                     <div class="mb-3">
@@ -170,6 +180,7 @@
                                                 <th scope="col">Referred By Username</th>
                                                 <th scope="col">Affiliated By Username</th>
                                                 <th scope="col">Time</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -222,7 +233,7 @@
 
         <?
         include("./Public/Pages/Common/footer.php");
-       
+
         ?>
 
     </main>
