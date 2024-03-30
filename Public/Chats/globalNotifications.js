@@ -5,7 +5,7 @@ function checkForNewMessages() {
             if (data.newMessages) {
                 // Play notification sound only if the user has interacted with the page
                 document.addEventListener('click', function() {
-                    var audio = new Audio('./notification.wav');
+                    var audio = new Audio('../Public/Chats/notification.wav');
                     audio.play();
                 }, { once: true }); // { once: true } ensures that the event listener is removed after the first click
             }
