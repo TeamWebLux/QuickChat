@@ -202,7 +202,7 @@
                     }
             
 
-
+echo $sql;
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
                     $stmt->execute();
