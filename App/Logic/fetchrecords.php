@@ -29,7 +29,6 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
 
-    print($uri);
 
     include './App/db/db_connect.php';
     $userid = $_SESSION['userid'];
