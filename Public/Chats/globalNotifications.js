@@ -14,4 +14,4 @@ function checkForNewMessages() {
 }
 
 // Poll for new messages every 30 seconds
-setInterval(checkForNewMessages, 30000);
+setInterval(checkForNewMessages, 3000);
