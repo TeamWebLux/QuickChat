@@ -50,7 +50,7 @@
         $referralPercentage = $_POST['referralPercentage'];
         $affiliatePercentage = $_POST['affiliatePercentage'];
         $minimum = $_POST['minimum'];
-        $ref=$_POST['ref'];
+        $ref = $_POST['ref'];
 
         // Sanitize input
         $referralPercentage = filter_var($referralPercentage, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -63,11 +63,11 @@
         if ($existingData) {
             $updateQuery = "UPDATE refferal_bonus SET referal = ?, affiliate = ?,minimum=?,ref=? WHERE id = ?";
             $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param("dddsi", $referralPercentage, $affiliatePercentage, $minimum,$ref, $existingData['id']);
+            $stmt->bind_param("dddsi", $referralPercentage, $affiliatePercentage, $minimum, $ref, $existingData['id']);
         } else {
             $insertQuery = "INSERT INTO refferal_bonus (referal, affiliate,minimum,ref) VALUES (?, ?,?,?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ddds", $referralPercentage, $affiliatePercentage, $minimum,$ref);
+            $stmt->bind_param("ddds", $referralPercentage, $affiliatePercentage, $minimum, $ref);
         }
 
         if ($stmt->execute()) {
@@ -123,8 +123,8 @@
                                 <form action="" method="POST">
                                     <select class="select2-basic-single js-states form-select form-control" name="ref" id="userSelect" style="width: 100%;" required>
                                         <option value="" disabled hidden>Select CashAPP</option>
-                                        <option name="ref" value="percent">By Percentage  </option>
-                                        <option name="ref" value="amount">By Amount  </option>
+                                        <option name="ref" value="percent">By Percentage </option>
+                                        <option name="ref" value="amount">By Amount </option>
                                     </select>
 
 
@@ -178,6 +178,9 @@
                                                 <th scope="col">Referred By Username</th>
                                                 <th scope="col">Affiliated By Username</th>
                                                 <th scope="col">Time</th>
+                                                <th scope="col">Send ReferMoney</th>
+
+
 
                                             </tr>
                                         </thead>
@@ -189,6 +192,10 @@
                                                     <td><?= htmlspecialchars($row['refered_by']); ?></td>
                                                     <td><?= htmlspecialchars($row['afilated_by']); ?></td>
                                                     <td><?= htmlspecialchars($row['created_at']); ?></td>
+                                                    <td> <a href="./Add_Refer?u=<?php echo $username; ?>" style="text-decoration: none;">
+                                                            <button type="button" class="btn btn-danger rounded-pill mt-2">Edit Branch Details</button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             <?php endwhile; ?>
                                         </tbody>

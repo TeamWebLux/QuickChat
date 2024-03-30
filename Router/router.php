@@ -64,12 +64,10 @@ if ($uri == $firstparam || $uri == $secondparam) {
         $prefix . $root . '/Withdraw_Earning'                         => './Public/Pages/Portal/withdrawlearning.php',
 
         $prefix . $root . '/Scripts'                         => './Public/Pages/Portal/scripts.php',
-
-
-
         $prefix . $root . '/Add_User'                         => './Public/Pages/Portal/temp.php',
-
         $prefix . $root . '/Add_CashApp'                         => './Public/Pages/Portal/temp.php',
+        $prefix . $root . '/Add_Refer'                         => './Public/Pages/Portal/add_refer.php',
+
 
         //Edit Fields
         $prefix . $root . '/Edit_User'                         => './Public/Pages/Portal/temp.php',
