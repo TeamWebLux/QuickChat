@@ -27,7 +27,7 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
     include './App/db/db_connect.php';
-
+    $referName = $_GET['u'];
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $referName = $_POST['username'];
         $amount = $_POST['amount'];
@@ -38,12 +38,9 @@
         $sql = "INSERT INTO referrecord (username, amount, type, byname, trans) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sdsss", $referName, $amount, $type, $byname, $trans);
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             echoToastScript('success', 'Record inserted successfully');
-            header("Location: ./Set_Refer" );
-
-
-
+            header("Location: ./Set_Refer");
         }
 
         // Display success toast
