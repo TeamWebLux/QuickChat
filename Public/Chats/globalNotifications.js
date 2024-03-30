@@ -13,5 +13,4 @@ function checkForNewMessages() {
         .catch(error => console.error('Error fetching new messages:', error));
 }
 
-// Poll for new messages every 30 seconds
-setInterval(checkForNewMessages, 3000);
+setInterval(checkForNewMessages, 1000);

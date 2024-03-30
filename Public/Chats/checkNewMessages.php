@@ -36,5 +36,3 @@ ob_end_clean();
 // Now, output the JSON response
 echo json_encode($response);
 
-// No need to close the PHP tag at the end, especially when it's pure PHP code.
-// This avoids accidental whitespace or new lines being outputted.
