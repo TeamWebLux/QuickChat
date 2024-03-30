@@ -26,7 +26,23 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
+    include './App/db/db_connect.php';
+
     $referName=$_GET['u'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $name=$referName;
+        $amount=$_POST['amount'];
+        $type="Referred Bonus";
+        $byname=$_SESSION['username'];
+        $trans="Credit";
+
+        $sql="Insert into referrecord (username,amount,type,byname,trans) VALUES (?,?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sdsss", $username, $amount, $type, $byname, $trans);
+
+
+
+    }
 
 
     ?>
@@ -72,7 +88,7 @@
 
                                     <div class="mb-3">
                                         <label for="referralPercentage" class="form-label">Amount </label>
-                                        <input type="text" class="form-control" id="referralPercentage" name="referralPercentage" required value="<?php echo htmlspecialchars($referralPercentage); ?>">
+                                        <input type="text" class="form-control" id="referralPercentage" name="amount" required value="">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Update</button>
