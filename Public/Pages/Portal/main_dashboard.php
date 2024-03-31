@@ -37,7 +37,12 @@
         // Modify the query according to your table structure and needs
         $sql = "SELECT * FROM transaction WHERE created_at BETWEEN '$startTime' AND '$endTime'";
         $result = $conn->query($sql);
-
+        if ($result === false) {
+            // SQL Error
+            echo "SQL Error: " . $conn->error;
+            exit;
+        } else {
+        
         if ($result && $result->num_rows > 0) {
             // Setting headers to force download of the report
             header('Content-Type: text/csv');
@@ -59,7 +64,7 @@
             echo "Query failed: " . $conn->error;
         
             echo "No records found or error in query execution.";
-        }
+        }}
         $conn->close();
     }
     ?>
