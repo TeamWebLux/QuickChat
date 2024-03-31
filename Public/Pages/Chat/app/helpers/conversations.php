@@ -18,7 +18,7 @@ function getConversation($user_id, $conn)
   ORDER BY last_message_time DESC";
 
   $stmt = $conn->prepare($sql);
-  $stmt->execute([$user_id, $user_id]);
+  $stmt->execute([$user_id, $user_id, $user_id, $user_id]);
 
   if ($stmt->rowCount() > 0) {
     $conversations = $stmt->fetchAll();
