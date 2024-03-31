@@ -408,7 +408,7 @@
 									<?php
 									foreach($data as $data){
 
-										if($to_id==$data['id']){
+										if($chatWith['id']==$data['id']){
 
 											$participantName = $data['username']; // Assuming 'name' is the field containing the participant's name
 											echo "Chatting with: $participantName<br>";
