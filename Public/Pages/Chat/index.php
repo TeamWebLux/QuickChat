@@ -37,7 +37,7 @@
 		if ($_SESSION['role'] == 'User') {
 			// Fetch online agents in the same page
 			$pagename = $_SESSION['page'];
-			$sql = "SELECT * FROM user WHERE role = 'Agent' AND last_seen(last_seen COLLATE utf8mb4_unicode_ci) = 'Active' AND pagename = ?";
+			$sql = "SELECT * FROM user WHERE role = 'Agent' AND last_seen(last_seen) COLLATE utf8mb4_unicode_ci = 'Active' AND pagename = ? COLLATE utf8mb4_unicode_ci";
 			$stmt = $conn->prepare($sql);
 			$stmt->execute([$pagename]);
 			$agents = $stmt->fetchAll(PDO::FETCH_ASSOC);
