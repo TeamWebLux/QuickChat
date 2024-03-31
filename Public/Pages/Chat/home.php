@@ -405,15 +405,8 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
-									foreach($data as $data){
-
-										if($chatWith['id']==$data['id']){
-
-											$participantName = $data['username']; // Assuming 'name' is the field containing the participant's name
+											$participantName = $chat['sender_username']; // Assuming 'name' is the field containing the participant's name
 											echo "Chatting with: $participantName<br>";
-										}
-										
-									}
 
 									$attachmentHTML = '';
 									if (!empty($chat['attachment'])) {
