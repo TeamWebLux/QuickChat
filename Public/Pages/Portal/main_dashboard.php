@@ -1,8 +1,4 @@
-<!doctype html>
-<html lang="en" dir="ltr">
-
-<head>
-    <?php
+<?php 
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     function downloadCSV($conn, $startTime, $endTime)
@@ -50,6 +46,14 @@
         // Call the CSV download function
         downloadCSV($conn, $startTime, $endTime);
     }
+
+
+?>
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <?php
 
     include("./Public/Pages/Common/header.php");
     include "./Public/Pages/Common/auth_user.php";
