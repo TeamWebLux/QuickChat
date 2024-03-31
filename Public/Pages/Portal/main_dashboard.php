@@ -5,30 +5,6 @@
     <?php
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-
-    include("./Public/Pages/Common/header.php");
-    include "./Public/Pages/Common/auth_user.php";
-
-    // Function to echo the script for toastr
-    function echoToastScript($type, $message)
-    {
-        echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
-    }
-
-
-    if (isset($_SESSION['toast'])) {
-        $toast = $_SESSION['toast'];
-        echoToastScript($toast['type'], $toast['message']);
-        unset($_SESSION['toast']); // Clear the toast message from session
-    }
-
-    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-
-    // Display error message if available
-    if (isset($_SESSION['login_error'])) {
-        echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
-        unset($_SESSION['login_error']); // Clear the error message
-    }
     function downloadCSV($conn, $startTime, $endTime)
     {
         // Assuming the real_escape_string has already been applied
@@ -60,6 +36,30 @@
 
         // Stop script execution
         exit;
+    }
+
+    include("./Public/Pages/Common/header.php");
+    include "./Public/Pages/Common/auth_user.php";
+
+    // Function to echo the script for toastr
+    function echoToastScript($type, $message)
+    {
+        echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
+    }
+
+
+    if (isset($_SESSION['toast'])) {
+        $toast = $_SESSION['toast'];
+        echoToastScript($toast['type'], $toast['message']);
+        unset($_SESSION['toast']); // Clear the toast message from session
+    }
+
+    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+    // Display error message if available
+    if (isset($_SESSION['login_error'])) {
+        echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
+        unset($_SESSION['login_error']); // Clear the error message
     }
 
     if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
