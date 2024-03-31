@@ -37,7 +37,10 @@
 		if ($_SESSION['role'] == 'User') {
 			// Fetch online agents in the same page
 			$pagename = $_SESSION['page'];
-			$sql = "SELECT * FROM user WHERE role = 'Agent' AND last_seen(last_seen) = 'Active' AND pagename = ?";
+			$sql = "SELECT *, last_seen(last_seen) AS user_last_seen 
+			FROM user 
+			WHERE role = 'Agent' AND last_seen(last_seen) = 'Active' AND pagename = ?
+			";
 			$stmt = $conn->prepare($sql);
 			$stmt->execute([$pagename]);
 			$agents = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -282,7 +285,7 @@
 	    				          align-items-center p-2">
 											<div class="d-flex
 	    					            align-items-center">
-										<img src="../uploads/profile/<?= !empty($chatWith['p_p']) ? $chatWith['p_p'] : '07.png' ?>" class="w-15 rounded-circle">
+												<img src="../uploads/profile/<?= !empty($chatWith['p_p']) ? $chatWith['p_p'] : '07.png' ?>" class="w-15 rounded-circle">
 												<h3 class="fs-xs m-2">
 													<?= $conversation['name'] ?><br>
 													<small>
@@ -322,7 +325,7 @@
 			            align-items-center">
 							<div class="d-flex
     			            align-items-center">
-							<img src="../uploads/profile/<?= !empty($chatWith['p_p']) ? $chatWith['p_p'] : '07.png' ?>" class="w-15 rounded-circle">
+								<img src="../uploads/profile/<?= !empty($chatWith['p_p']) ? $chatWith['p_p'] : '07.png' ?>" class="w-15 rounded-circle">
 								<h3 class="fs-xs m-2"><?= $user['name'] ?></h3>
 							</div>
 						</div>
@@ -434,7 +437,7 @@
 
 		<?
 		include("./Public/Pages/Common/footer.php");
-		
+
 		?>
 
 	</main>
