@@ -34,8 +34,9 @@ function getChats($id_1, $id_2, $conn)
         $chats = $stmt->fetchAll();
         print_r($chats);
         if ($role == 'User') {
-            print_r($participants);
-            return ['chats' => $chats, 'participants' => $participants];
+            $chats[]=[$chats,$participants];
+            print_r($chats);
+            return  $chats;
         } else {
             return $chats;
         }

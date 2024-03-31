@@ -403,7 +403,7 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
-									$participantName = $participants[$otherUserId]['name']; // Assuming 'name' is the field containing the participant's name
+									$participantName = $participants[$otherUserId]['username']; // Assuming 'name' is the field containing the participant's name
 									echo "Chatting with: $participantName<br>";
 
 									$attachmentHTML = '';
