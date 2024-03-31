@@ -37,6 +37,19 @@
         // Stop script execution
         exit;
     }
+    if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
+        // Start output buffering
+        ob_start();
+
+        // Database connection details
+        include './App/db/db_connect.php';
+
+        $startTime = $conn->real_escape_string($_GET['start_time']);
+        $endTime = $conn->real_escape_string($_GET['end_time']);
+
+        // Call the CSV download function
+        downloadCSV($conn, $startTime, $endTime);
+    }
 
     include("./Public/Pages/Common/header.php");
     include "./Public/Pages/Common/auth_user.php";
@@ -62,19 +75,6 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
 
-    if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
-        // Start output buffering
-        ob_start();
-
-        // Database connection details
-        include './App/db/db_connect.php';
-
-        $startTime = $conn->real_escape_string($_GET['start_time']);
-        $endTime = $conn->real_escape_string($_GET['end_time']);
-
-        // Call the CSV download function
-        downloadCSV($conn, $startTime, $endTime);
-    }
     // If here, the script is not in download mode; it should continue to render the page normally.
     ?>
     <style>
