@@ -30,41 +30,60 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
     if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
+        // Start output buffering
+        ob_start();
+    
+        // Database connection details
         include './App/db/db_connect.php';
-
-        // The real_escape_string method is good for basic protection
+    
         $startTime = $conn->real_escape_string($_GET['start_time']);
         $endTime = $conn->real_escape_string($_GET['end_time']);
-
-        // Correct the SQL statement to compare only the time part if necessary
-        // For example: WHERE TIME(created_at) BETWEEN '$startTime' AND '$endTime'
+    
+        // Construct and execute the query
         $sql = "SELECT * FROM transaction WHERE TIME(created_at) BETWEEN '$startTime' AND '$endTime'";
         $result = $conn->query($sql);
-
-        if (!$result) {
-            echo "SQL Error: " . $conn->error;
-        } elseif ($result->num_rows > 0) {
+    
+        if ($result === false) {
+            // Clear the output buffer and stop buffering
+            ob_end_clean();
+            die("SQL Error: " . $conn->error);
+        }
+    
+        if ($result->num_rows > 0) {
+            // Clear the output buffer without sending it, ensuring nothing is printed to the page
+            ob_end_clean();
+            
+            // Set headers to download file instead of displaying it
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="report.csv"');
-
+            
+            // Open the output stream
             $output = fopen('php://output', 'w');
-            $columns = ['Column1', 'Column2', 'Column3']; // Adjust as necessary
-            fputcsv($output, $columns);
-
+            
+            // Column headers, adjust as necessary
+            fputcsv($output, ['Column1', 'Column2', 'Column3']);
+            
+            // Output each row of the data
             while ($row = $result->fetch_assoc()) {
                 fputcsv($output, $row);
             }
-
+            
+            // Close the output stream
             fclose($output);
+            
+            // Terminate the script to avoid sending any additional content
             exit;
         } else {
-            // If no records found, display or handle accordingly
-            // Consider using a session-based flash message if you redirect or reload the page
-            echo "No records found within the specified time period.";
+            // No records found, clean the buffer and output an error message or handle as needed
+            ob_end_clean();
+            die("No records found.");
         }
+        
+        // Close the database connection
         $conn->close();
     }
-    ?>
+    // If here, the script is not in download mode; it should continue to render the page normally.
+        ?>
     <style>
         /* CSS for modal */
         .modal {
