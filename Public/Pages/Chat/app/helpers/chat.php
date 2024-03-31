@@ -8,6 +8,7 @@ function getChats($id_1, $id_2, $conn)
         $sql = "SELECT * FROM chats
            WHERE (from_id=? OR to_id=?)
            ORDER BY chat_id ASC";
+        echo $sql;
         $stmt = $conn->prepare($sql);
         $stmt->execute([$id_2, $id_2]); // Binding $id_2 twice
     } else {
@@ -15,6 +16,8 @@ function getChats($id_1, $id_2, $conn)
             WHERE (from_id=? AND to_id=?)
             OR    (to_id=? AND from_id=?)
             ORDER BY chat_id ASC";
+        echo $sql;
+
         $stmt = $conn->prepare($sql);
         $stmt->execute([$id_1, $id_2, $id_2, $id_1]); // Corrected the order of parameters
     }
