@@ -1,7 +1,7 @@
 <?php 
 
 function opened($id_1, $conn, $chats){
-    foreach ($chats as $chat) {
+    foreach ($chats['chats'] as $chat) {
     	if ($chat['opened'] == 0) {
     		$opened = 1;
     		$chat_id = $chat['chat_id'];
