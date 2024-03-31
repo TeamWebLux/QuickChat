@@ -35,7 +35,7 @@
 
         // Construct and execute query
         // Modify the query according to your table structure and needs
-        $sql = "SELECT * FROM transactions WHERE time_column BETWEEN '$startTime' AND '$endTime'";
+        $sql = "SELECT * FROM transaction WHERE created_at BETWEEN '$startTime' AND '$endTime'";
         $result = $conn->query($sql);
 
         if ($result && $result->num_rows > 0) {
