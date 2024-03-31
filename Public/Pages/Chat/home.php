@@ -14,7 +14,7 @@
 		echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
 	}
 
-	
+
 	if (isset($_SESSION['toast'])) {
 		$toast = $_SESSION['toast'];
 		echoToastScript($toast['type'], $toast['message']);
@@ -57,7 +57,7 @@
 	}
 
 
-	
+
 	?>
 
 	<style>
@@ -403,6 +403,9 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
+									$participantName = $participants[$otherUserId]['name']; // Assuming 'name' is the field containing the participant's name
+									echo "Chatting with: $participantName<br>";
+
 									$attachmentHTML = '';
 									if (!empty($chat['attachment'])) {
 										$file = "../uploads/" . $chat['attachment']; // Adjust the path as needed
@@ -714,7 +717,7 @@
 
 		<?
 		include("./Public/Pages/Common/footer.php");
-		
+
 		?>
 
 	</main>
