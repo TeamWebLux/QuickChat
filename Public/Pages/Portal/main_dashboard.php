@@ -16,7 +16,7 @@ function downloadCSV($conn, $startTime, $endTime)
         header('Content-Disposition: attachment; filename="report.csv"');
 
         $output = fopen('php://output', 'w');
-        $columns = ['Recharge', 'Redeem','Excess','Bonus','Page Name','CashAppName','Done By','UserName','Platform','Type','FreePlay','TIP', 'Created At']; // Replace with actual column names
+        $columns = ['Recharge', 'Redeem','Excess','Bonus','Page Name','CashAppName','Done By','UserName','Platform','Type','FreePlay','TIP','Remark', 'Created At']; // Replace with actual column names
         fputcsv($output, $columns);
 
         while ($row = $result->fetch_assoc()) {
@@ -185,7 +185,7 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
                             <div class="card text-center">
                                 <div class="card-body">
                                     <h2 class="mb-3"><?php echo $totalRecharge; ?></h2>
-                                    <h5>Everyday Recharge Total</h5>
+                                    <h5>Today Recharge Total</h5>
                                     <!-- You can add logic to calculate percentage changes -->
                                 </div>
                             </div>
@@ -194,7 +194,7 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
                             <div class="card text-center">
                                 <div class="card-body">
                                     <h2 class="mb-3"><?php echo $totalRedeem; ?></h2>
-                                    <h5>Everyday Redeem Amount</h5>
+                                    <h5>Today Redeem Amount</h5>
                                     <!-- You can add logic to calculate percentage changes -->
                                 </div>
                             </div>
