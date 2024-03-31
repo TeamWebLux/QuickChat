@@ -12,7 +12,7 @@
         echo "<script type='text/javascript'>document.addEventListener('DOMContentLoaded', function() { toastr['$type']('$message'); });</script>";
     }
 
-   
+
     if (isset($_SESSION['toast'])) {
         $toast = $_SESSION['toast'];
         echoToastScript($toast['type'], $toast['message']);
@@ -26,8 +26,51 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
+    if (isset($_GET['start']) && isset($_GET['end'])) {
+        // Database connection details
+        $host = 'your_host';
+        $user = 'your_username';
+        $password = 'your_password';
+        $dbname = 'your_db';
 
-   
+        // Create connection
+        $conn = new mysqli($host, $user, $password, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $startTime = $conn->real_escape_string($_GET['start']);
+        $endTime = $conn->real_escape_string($_GET['end']);
+
+        // Query to fetch transactions within the specified time period
+        $sql = "SELECT * FROM transactions WHERE created_at BETWEEN '$startTime' AND '$endTime'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Setting headers to force download of the report
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="report.csv"');
+
+            $output = fopen('php://output', 'w');
+
+            // Assuming you know the column names of the transactions table
+            $columns = ['Column1', 'Column2', 'Column3']; // Replace with actual column names
+            fputcsv($output, $columns); // Header row
+
+            while ($row = $result->fetch_assoc()) {
+                fputcsv($output, $row);
+            }
+
+            fclose($output);
+            exit;
+        } else {
+            echo "No records found.";
+        }
+        $conn->close();
+    }
+
     ?>
 
 </head>
@@ -50,6 +93,9 @@
         ?>
 
         <div class="content-inner container-fluid pb-0" id="page_layout">
+            <br>
+            <br>
+            <button id="downloadReportBtn">Download Report</button>
 
             <div class="row">
                 <div class="col-lg-8">
@@ -97,7 +143,7 @@
         </div>
         <?
         include("./Public/Pages/Common/footer.php");
-     
+
         ?>
 
     </main>
@@ -107,6 +153,21 @@
     <?php
     include("./Public/Pages/Common/theme_custom.php");
     ?>
+    <script>
+        document.getElementById('downloadReportBtn').addEventListener('click', function() {
+            var startTime = prompt("Enter the start time (YYYY-MM-DD HH:MM:SS)", "");
+            var endTime = prompt("Enter the end time (YYYY-MM-DD HH:MM:SS)", "");
+
+            if (startTime && endTime) {
+                // Constructing a URL to download the report
+                var downloadUrl = `?start=${encodeURIComponent(startTime)}&end=${encodeURIComponent(endTime)}`;
+                window.location.href = downloadUrl; // This will trigger the download
+            } else {
+                alert("You must enter both start and end times.");
+            }
+        });
+    </script>
+
 
     <!-- Settings sidebar end here -->
 
