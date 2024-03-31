@@ -27,32 +27,26 @@
         unset($_SESSION['login_error']); // Clear the error message
     }
     if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
-        // Database connection details
         include './App/db/db_connect.php';
 
+        // The real_escape_string method is good for basic protection
         $startTime = $conn->real_escape_string($_GET['start_time']);
         $endTime = $conn->real_escape_string($_GET['end_time']);
 
-        // Construct and execute query
-        // Modify the query according to your table structure and needs
-        $sql = "SELECT * FROM transaction WHERE created_at BETWEEN '$startTime' AND '$endTime'";
+        // Correct the SQL statement to compare only the time part if necessary
+        // For example: WHERE TIME(created_at) BETWEEN '$startTime' AND '$endTime'
+        $sql = "SELECT * FROM transaction WHERE TIME(created_at) BETWEEN '$startTime' AND '$endTime'";
         $result = $conn->query($sql);
-        if ($result === false) {
-            // SQL Error
+
+        if (!$result) {
             echo "SQL Error: " . $conn->error;
-            exit;
-        } else {
-        
-        if ($result && $result->num_rows > 0) {
-            // Setting headers to force download of the report
+        } elseif ($result->num_rows > 0) {
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="report.csv"');
 
             $output = fopen('php://output', 'w');
-
-            // Assuming you know the column names of the transactions table
-            $columns = ['Column1', 'Column2', 'Column3']; // Replace with actual column names
-            fputcsv($output, $columns); // Header row
+            $columns = ['Column1', 'Column2', 'Column3']; // Adjust as necessary
+            fputcsv($output, $columns);
 
             while ($row = $result->fetch_assoc()) {
                 fputcsv($output, $row);
@@ -61,10 +55,10 @@
             fclose($output);
             exit;
         } else {
-            echo "Query failed: " . $conn->error;
-        
-            echo "No records found or error in query execution.";
-        }}
+            // If no records found, display or handle accordingly
+            // Consider using a session-based flash message if you redirect or reload the page
+            echo "No records found within the specified time period.";
+        }
         $conn->close();
     }
     ?>
