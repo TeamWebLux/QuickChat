@@ -2,7 +2,7 @@
 
 function getChats($id_1, $id_2, $conn)
 {
-    $data = getUserDataByUsername($id_1, $conn);
+    $data = getUserDataByUsername($id_2, $conn);
     $role = $data['role'];
     if ($role == 'User') {
         $sql = "SELECT * FROM chats
