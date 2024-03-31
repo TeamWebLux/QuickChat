@@ -56,6 +56,8 @@
             fclose($output);
             exit;
         } else {
+            echo "Query failed: " . $conn->error;
+        
             echo "No records found or error in query execution.";
         }
         $conn->close();
