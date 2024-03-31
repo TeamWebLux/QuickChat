@@ -52,7 +52,6 @@
 		}
 
 		$chat = getChats($_SESSION['user_id'], $chatWith['id'], $conn);
-		print_r("The data is ");
 		$chats = $chat['chats'];
 		$data = $chat['participants'];
 		opened($chatWith['id'], $conn, $chat);

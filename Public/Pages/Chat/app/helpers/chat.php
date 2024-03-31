@@ -32,7 +32,6 @@ function getChats($id_1, $id_2, $conn)
     // Fetch all chats if available
     if ($stmt->rowCount() > 0) {
         $chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        print_r($chats);
         // If role is 'User', append participants to the chats array
         if ($role == 'User') {
             $participants = [];
