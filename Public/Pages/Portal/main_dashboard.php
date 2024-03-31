@@ -26,18 +26,19 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
-    if (isset($_GET['start']) && isset($_GET['end'])) {
+    if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
         // Database connection details
         include './App/db/db_connect.php';
 
-        $startTime = $conn->real_escape_string($_GET['start']);
-        $endTime = $conn->real_escape_string($_GET['end']);
+        $startTime = $conn->real_escape_string($_GET['start_time']);
+        $endTime = $conn->real_escape_string($_GET['end_time']);
 
-        // Query to fetch transactions within the specified time period
-        $sql = "SELECT * FROM transactions WHERE created_at BETWEEN '$startTime' AND '$endTime'";
+        // Construct and execute query
+        // Modify the query according to your table structure and needs
+        $sql = "SELECT * FROM transactions WHERE time_column BETWEEN '$startTime' AND '$endTime'";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result && $result->num_rows > 0) {
             // Setting headers to force download of the report
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="report.csv"');
@@ -55,11 +56,10 @@
             fclose($output);
             exit;
         } else {
-            echo "No records found.";
+            echo "No records found or error in query execution.";
         }
         $conn->close();
     }
-
     ?>
     <style>
         /* CSS for modal */
