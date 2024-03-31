@@ -28,18 +28,7 @@
     }
     if (isset($_GET['start']) && isset($_GET['end'])) {
         // Database connection details
-        $host = 'your_host';
-        $user = 'your_username';
-        $password = 'your_password';
-        $dbname = 'your_db';
-
-        // Create connection
-        $conn = new mysqli($host, $user, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include './App/db/db_connect.php';
 
         $startTime = $conn->real_escape_string($_GET['start']);
         $endTime = $conn->real_escape_string($_GET['end']);
@@ -72,6 +61,42 @@
     }
 
     ?>
+    <style>
+        /* CSS for modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 
@@ -95,7 +120,21 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <br>
             <br>
-            <button id="downloadReportBtn">Download Report</button>
+            <button id="myBtn">Download Report</button>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form id="timeForm">
+                        <label for="start_time">Start Time:</label>
+                        <input type="time" id="start_time" name="start_time" required>
+
+                        <label for="end_time">End Time:</label>
+                        <input type="time" id="end_time" name="end_time" required>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-lg-8">
@@ -154,18 +193,30 @@
     include("./Public/Pages/Common/theme_custom.php");
     ?>
     <script>
-        document.getElementById('downloadReportBtn').addEventListener('click', function() {
-            var startTime = prompt("Enter the start time (YYYY-MM-DD HH:MM:SS)", "");
-            var endTime = prompt("Enter the end time (YYYY-MM-DD HH:MM:SS)", "");
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
 
-            if (startTime && endTime) {
-                // Constructing a URL to download the report
-                var downloadUrl = `?start=${encodeURIComponent(startTime)}&end=${encodeURIComponent(endTime)}`;
-                window.location.href = downloadUrl; // This will trigger the download
-            } else {
-                alert("You must enter both start and end times.");
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
-        });
+        }
+
+        document.getElementById("timeForm").onsubmit = function(event) {
+            event.preventDefault();
+            var startTime = document.getElementById("start_time").value;
+            var endTime = document.getElementById("end_time").value;
+            window.location.href = `?start_time=${encodeURIComponent(startTime)}&end_time=${encodeURIComponent(endTime)}`;
+        };
     </script>
 
 
