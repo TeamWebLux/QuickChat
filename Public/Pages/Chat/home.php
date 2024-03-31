@@ -51,10 +51,12 @@
 			exit;
 		}
 
-		$chats = getChats($_SESSION['user_id'], $chatWith['id'], $conn);
+		$chat = getChats($_SESSION['user_id'], $chatWith['id'], $conn);
 		print_r("The data is ");
-		print_r($chats);
-
+		print_r($chat);
+		$chats = $chat['chats'];
+		$data = $chat['data'];
+		
 		opened($chatWith['id'], $conn, $chats);
 	}
 
