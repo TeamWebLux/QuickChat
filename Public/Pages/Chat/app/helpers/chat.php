@@ -10,7 +10,14 @@ function getChats($id_1, $id_2, $conn)
            ORDER BY chat_id ASC";
         echo $sql;
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$id_2, $id_2]); // Binding $id_2 twice
+        $stmt->execute([$id_2, $id_2]);
+        $participants = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $otherUserId = ($row['from_id'] == $id_1) ? $row['to_id'] : $row['from_id'];
+            if (!isset($participants[$otherUserId])) {
+                $participants[$otherUserId] = getUserDataByUsername($otherUserId, $conn);
+            }
+        }
     } else {
         $sql = "SELECT * FROM chats
             WHERE (from_id=? AND to_id=?)
@@ -25,7 +32,11 @@ function getChats($id_1, $id_2, $conn)
     if ($stmt->rowCount() > 0) {
         $chats = $stmt->fetchAll();
         print_r($chats);
-        return ['chats' => $chats, 'data' => $data];
+        if ($role == 'User') {
+            return ['chats' => $chats, 'participants' => $participants];
+        } else {
+            return $chats;
+        }
     } else {
         $chats = [];
         return $chats;
