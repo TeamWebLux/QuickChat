@@ -406,7 +406,6 @@
 									<?= linkify($chat['message']) ?>
 									<?php
 											$participantName = $chat['sender_username']; // Assuming 'name' is the field containing the participant's name
-											echo "Chatting with: $participantName<br>";
 
 									$attachmentHTML = '';
 									if (!empty($chat['attachment'])) {
@@ -451,6 +450,10 @@
 									<small style="font-size: x-small;" class="d-block">
 										<?= $chat['created_at'] ?>
 									</small>
+									<small style="font-size: small;" class="d-block">
+										<?= "By ".$participantName ?>
+									</small>
+
 								</p>
 						<?php }
 						}
