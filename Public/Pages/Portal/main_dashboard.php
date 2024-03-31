@@ -1,9 +1,10 @@
 <?php
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 function downloadCSV($conn, $startTime, $endTime)
-{$user=$_SESSION['username'];
+{
+    $user = $_SESSION['username'];
     // Assuming the real_escape_string has already been applied
     $sql = "SELECT recharge,redeem,excess,bonus,page,cashapp,by_u,username,platform,type,freepik,tip,remark,created_at FROM transaction WHERE by_u='$user' AND TIME(created_at) BETWEEN '$startTime' AND '$endTime'";
     $result = $conn->query($sql);
@@ -16,7 +17,7 @@ function downloadCSV($conn, $startTime, $endTime)
         header('Content-Disposition: attachment; filename="report.csv"');
 
         $output = fopen('php://output', 'w');
-        $columns = ['Recharge', 'Redeem','Excess','Bonus','Page Name','CashAppName','Done By','UserName','Platform','Type','FreePlay','TIP','Remark', 'Created At']; // Replace with actual column names
+        $columns = ['Recharge', 'Redeem', 'Excess', 'Bonus', 'Page Name', 'CashAppName', 'Done By', 'UserName', 'Platform', 'Type', 'FreePlay', 'TIP', 'Remark', 'Created At']; // Replace with actual column names
         fputcsv($output, $columns);
 
         while ($row = $result->fetch_assoc()) {
