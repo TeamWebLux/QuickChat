@@ -140,7 +140,7 @@
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <br>
             <br>
-            <button id="myBtn">Download Report</button>
+            <button class="btn btn-outline-success rounded-pill mt-2" id="myBtn">End Shift</button>
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
