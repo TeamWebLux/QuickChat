@@ -55,7 +55,7 @@
 		print_r("The data is ");
 		print_r($chat);
 		$chats = $chat['chats'];
-		$data = $chat['data'];
+		$data = $chat['participants'];
 		
 		opened($chatWith['id'], $conn, $chats);
 	}
@@ -407,7 +407,7 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
-									$participantName = $participants[$otherUserId]['username']; // Assuming 'name' is the field containing the participant's name
+									$participantName = $data['username']; // Assuming 'name' is the field containing the participant's name
 									echo "Chatting with: $participantName<br>";
 
 									$attachmentHTML = '';
