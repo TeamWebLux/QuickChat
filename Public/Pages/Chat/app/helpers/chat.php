@@ -13,7 +13,7 @@ function getChats($id_1, $id_2, $conn)
         $stmt->execute([$id_2, $id_2]);
         $participants = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $otherUserId = ($row['from_id'] == $id_1) ? $row['to_id'] : $row['from_id'];
+            $otherUserId = ($row['from_id'] == $id_2) ? $row['to_id'] : $row['from_id'];
             if (!isset($participants[$otherUserId])) {
                 $participants[$otherUserId] = getUserDataByUsername($otherUserId, $conn);
             }
