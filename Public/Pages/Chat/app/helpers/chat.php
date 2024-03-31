@@ -25,7 +25,7 @@ function getChats($id_1, $id_2, $conn)
     if ($stmt->rowCount() > 0) {
         $chats = $stmt->fetchAll();
         print_r($chats);
-        return $chats;
+        return ['chats' => $chats, 'data' => $data];
     } else {
         $chats = [];
         return $chats;
