@@ -37,17 +37,14 @@
 		if ($_SESSION['role'] == 'User') {
 			// Fetch online agents in the same page
 			$pagename = $_SESSION['page'];
-			$sql = "SELECT *, last_seen(last_seen) AS user_last_seen 
-			FROM user 
-			WHERE role = 'Agent' AND last_seen(last_seen) = 'Active' AND pagename = ?
-			";
+			$sql = "SELECT * FROM user WHERE role = 'Agent' AND last_seen(last_seen) = 'Active' AND pagename = ? COLLATE utf8mb4_unicode_ci"; // Adjusted collation
 			$stmt = $conn->prepare($sql);
 			$stmt->execute([$pagename]);
 			$agents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			$user = getUser($_SESSION['username'], $conn);
 
-			# Getting User conversations
+			// Getting User conversations
 			$conversations = getConversation($user['id'], $conn);
 		} else {
 			$user = getUser($_SESSION['username'], $conn);
