@@ -55,7 +55,6 @@
 		print_r("The data is ");
 		$chats = $chat['chats'];
 		$data = $chat['participants'];
-		print_r($data);
 		opened($chatWith['id'], $conn, $chat);
 	}
 
