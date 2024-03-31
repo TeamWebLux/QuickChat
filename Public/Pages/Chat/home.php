@@ -45,7 +45,7 @@
 
 		# Getting User data data
 		$chatWith = getUser($_GET['user'], $conn);
-		print_r($chatWith);
+		print_r("The data is",$chatWith);
 
 		if (empty($chatWith)) {
 			header("Location: ./Chat_l");
