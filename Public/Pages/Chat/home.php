@@ -45,7 +45,7 @@
 
 		# Getting User data data
 		$chatWith = getUser($_GET['user'], $conn);
-
+		
 		if (empty($chatWith)) {
 			header("Location: ./Chat_l");
 			exit;
@@ -349,10 +349,7 @@
     	               mt-2 chat-box" id="chatBox">
 					<?php
 					if (!empty($chats)) {
-						$numChats = count($chats); // Assuming both arrays have the same length
-						for ($i = 0; $i < $numChats; $i++) {
-							$chat = $chats[$i];
-							$data = $data[$i];
+						foreach ($chats as $chat) {
 							if ($chat['from_id'] == $_SESSION['user_id']) { ?>
 								<p class="rtext align-self-end
 						        border rounded p-2 mb-1">
@@ -409,9 +406,15 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
+									foreach($data as $data){
 
-									$participantName = $data['username']; // Assuming 'name' is the field containing the participant's name
-									echo "Chatting with: $participantName<br>";
+										if($to_id==$data['id']){
+
+											$participantName = $data['username']; // Assuming 'name' is the field containing the participant's name
+											echo "Chatting with: $participantName<br>";
+										}
+										
+									}
 
 									$attachmentHTML = '';
 									if (!empty($chat['attachment'])) {
