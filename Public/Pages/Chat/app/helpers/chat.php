@@ -44,7 +44,7 @@ function getChats($id_1, $id_2, $conn)
 
             // Instead of appending, you might want to return participants separately or integrate them into chats differently
             // For simplicity, adding participants as a separate entry in the result
-            return ['chats' => $chats, 'participants' => $participants];
+            return $chats;
         } else {
             return $chats;
         }
