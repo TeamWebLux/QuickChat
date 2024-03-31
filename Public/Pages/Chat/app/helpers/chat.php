@@ -33,8 +33,8 @@ function getChats($id_1, $id_2, $conn)
     if ($stmt->rowCount() > 0) {
         $chats = $stmt->fetchAll();
         print_r($chats);
-        print_r($participants);
         if ($role == 'User') {
+            print_r($participants);
             return ['chats' => $chats, 'participants' => $participants];
         } else {
             return $chats;
