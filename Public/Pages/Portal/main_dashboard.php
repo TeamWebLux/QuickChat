@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 function downloadCSV($conn, $startTime, $endTime)
 {$user=$_SESSION['username'];
     // Assuming the real_escape_string has already been applied
-    $sql = "SELECT recharge,redeem,excess,bonus,page,cashapp,by_u,username,platform,type,freepik,tip,remark,created_at FROM transaction WHERE by_u='$user' TIME(created_at) BETWEEN '$startTime' AND '$endTime'";
+    $sql = "SELECT recharge,redeem,excess,bonus,page,cashapp,by_u,username,platform,type,freepik,tip,remark,created_at FROM transaction WHERE by_u='$user' AND TIME(created_at) BETWEEN '$startTime' AND '$endTime'";
     $result = $conn->query($sql);
 
     if ($result === false) {
