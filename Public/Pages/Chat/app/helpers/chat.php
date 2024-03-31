@@ -1,48 +1,51 @@
 <?php
 
-function getChats($id_1, $id_2, $conn)
-{
+function getChats($id_1, $id_2, $conn) {
+    // Get the role of the second user
     $data = getUserDataByUsername($id_2, $conn);
     $role = $data['role'];
+
+    // Define the initial SQL query and parameters based on the user role
     if ($role == 'User') {
         $sql = "SELECT * FROM chats
-           WHERE (from_id=? OR to_id=?)
-           ORDER BY chat_id ASC";
-        echo $sql;
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$id_2, $id_2]);
-        $participants = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $otherUserId = ($row['from_id'] == $id_2) ? $row['to_id'] : $row['from_id'];
-            if (!isset($participants[$otherUserId])) {
-                $participants[$otherUserId] = getUserDataByUsername($otherUserId, $conn);
-            }
-        }
-        
+                WHERE (from_id = ? OR to_id = ?)
+                ORDER BY chat_id ASC";
+        $params = [$id_2, $id_2];
     } else {
         $sql = "SELECT * FROM chats
-            WHERE (from_id=? AND to_id=?)
-            OR    (to_id=? AND from_id=?)
-            ORDER BY chat_id ASC";
-        echo $sql;
-
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$id_1, $id_2, $id_2, $id_1]); // Corrected the order of parameters
+                WHERE (from_id = ? AND to_id = ?)
+                OR    (to_id = ? AND from_id = ?)
+                ORDER BY chat_id ASC";
+        $params = [$id_1, $id_2, $id_2, $id_1];
     }
 
+    // Prepare and execute SQL statement
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($params);
+
+    // Fetch all chats if available
     if ($stmt->rowCount() > 0) {
-        $chats = $stmt->fetchAll();
-        print_r($chats);
+        $chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // If role is 'User', append participants to the chats array
         if ($role == 'User') {
-            $chats[]=[$chats,$participants];
-            print_r($chats);
-            return  $chats;
+            $participants = [];
+            foreach ($chats as $chat) {
+                $otherUserId = ($chat['from_id'] == $id_2) ? $chat['to_id'] : $chat['from_id'];
+                if (!isset($participants[$otherUserId])) {
+                    $participants[$otherUserId] = getUserDataByUsername($otherUserId, $conn);
+                }
+            }
+
+            // Instead of appending, you might want to return participants separately or integrate them into chats differently
+            // For simplicity, adding participants as a separate entry in the result
+            return ['chats' => $chats, 'participants' => $participants];
         } else {
             return $chats;
         }
     } else {
-        $chats = [];
-        return $chats;
+        // Return an empty array if no chats found
+        return [];
     }
 }
 function getChatPage($id_1, $id_2, $conn)
