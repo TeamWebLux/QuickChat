@@ -5,7 +5,7 @@
     <?php
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-    
+
     include("./Public/Pages/Common/header.php");
     include "./Public/Pages/Common/auth_user.php";
 
@@ -29,61 +29,54 @@
         echo '<p class="error">' . $_SESSION['login_error'] . '</p>';
         unset($_SESSION['login_error']); // Clear the error message
     }
-    if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
-        // Start output buffering
-        ob_start();
-    
-        // Database connection details
-        include './App/db/db_connect.php';
-    
-        $startTime = $conn->real_escape_string($_GET['start_time']);
-        $endTime = $conn->real_escape_string($_GET['end_time']);
-    
-        // Construct and execute the query
+    function downloadCSV($conn, $startTime, $endTime)
+    {
+        // Assuming the real_escape_string has already been applied
         $sql = "SELECT * FROM transaction WHERE TIME(created_at) BETWEEN '$startTime' AND '$endTime'";
         $result = $conn->query($sql);
-    
+
         if ($result === false) {
-            // Clear the output buffer and stop buffering
-            ob_end_clean();
-            die("SQL Error: " . $conn->error);
-        }
-    
-        if ($result->num_rows > 0) {
-            // Clear the output buffer without sending it, ensuring nothing is printed to the page
-            ob_end_clean();
-            
-            // Set headers to download file instead of displaying it
+            // SQL Error
+            echo "SQL Error: " . $conn->error;
+        } else if ($result->num_rows > 0) {
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="report.csv"');
-            
-            // Open the output stream
+
             $output = fopen('php://output', 'w');
-            
-            // Column headers, adjust as necessary
-            fputcsv($output, ['Column1', 'Column2', 'Column3']);
-            
-            // Output each row of the data
+            $columns = ['Column1', 'Column2', 'Column3']; // Replace with actual column names
+            fputcsv($output, $columns);
+
             while ($row = $result->fetch_assoc()) {
                 fputcsv($output, $row);
             }
-            
-            // Close the output stream
+
             fclose($output);
-            
-            // Terminate the script to avoid sending any additional content
-            exit;
         } else {
-            // No records found, clean the buffer and output an error message or handle as needed
-            ob_end_clean();
-            die("No records found.");
+            echo "No records found.";
         }
-        
+
         // Close the database connection
         $conn->close();
+
+        // Stop script execution
+        exit;
+    }
+
+    if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
+        // Start output buffering
+        ob_start();
+
+        // Database connection details
+        include './App/db/db_connect.php';
+
+        $startTime = $conn->real_escape_string($_GET['start_time']);
+        $endTime = $conn->real_escape_string($_GET['end_time']);
+
+        // Call the CSV download function
+        downloadCSV($conn, $startTime, $endTime);
     }
     // If here, the script is not in download mode; it should continue to render the page normally.
-        ?>
+    ?>
     <style>
         /* CSS for modal */
         .modal {
