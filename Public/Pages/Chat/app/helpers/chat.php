@@ -33,21 +33,7 @@ function getChats($id_1, $id_2, $conn)
     if ($stmt->rowCount() > 0) {
         $chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
         // If role is 'User', append participants to the chats array
-        if ($role == 'User') {
-            $participants = [];
-            foreach ($chats as $chat) {
-                $otherUserId = ($chat['from_id'] == $id_2) ? $chat['to_id'] : $chat['from_id'];
-                if (!isset($participants[$otherUserId])) {
-                    $participants[$otherUserId] = getUserDataByUsername($otherUserId, $conn);
-                }
-            }
-
-            // Instead of appending, you might want to return participants separately or integrate them into chats differently
-            // For simplicity, adding participants as a separate entry in the result
-            return $chats;
-        } else {
-            return $chats;
-        }
+        return $chats;
     } else {
         // Return an empty array if no chats found
         return [];
