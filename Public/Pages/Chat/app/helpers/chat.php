@@ -18,6 +18,7 @@ function getChats($id_1, $id_2, $conn)
                 $participants[$otherUserId] = getUserDataByUsername($otherUserId, $conn);
             }
         }
+        
     } else {
         $sql = "SELECT * FROM chats
             WHERE (from_id=? AND to_id=?)
@@ -32,6 +33,7 @@ function getChats($id_1, $id_2, $conn)
     if ($stmt->rowCount() > 0) {
         $chats = $stmt->fetchAll();
         print_r($chats);
+        print_r($participants);
         if ($role == 'User') {
             return ['chats' => $chats, 'participants' => $participants];
         } else {
