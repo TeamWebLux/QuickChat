@@ -306,7 +306,7 @@
 												<h3 class="fs-xs m-2">
 													<?= $conversation['name'] ?><br>
 													<?php if (!empty($conversation['unread_messages']) && $conversation['unread_messages'] > 0) { ?>
-														<span class="unread-messages"><?= $conversation['unread_messages'] ?></span>
+														<div class="unread-messages"><?= $conversation['unread_messages'] ?></div>
 													<?php } ?>
 
 													<small>
