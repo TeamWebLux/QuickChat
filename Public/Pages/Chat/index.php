@@ -286,6 +286,10 @@
 												<h3 class="fs-xs m-2">
 													<?= $conversation['name'] ?><br>
 													<small>
+														Unread Messages: <?= $conversation['unread_messages'] ?? 0; ?>
+													</small>
+
+													<small>
 														<?php
 														echo lastChat($_SESSION['user_id'], $conversation['id'], $conn);
 														?>
