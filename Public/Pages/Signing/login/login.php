@@ -102,12 +102,6 @@
                                                 </div>
                                                 <p class="text-center my-3">or sign in with other accounts?</p>
                                                 <!-- For Android -->
-<button onclick="window.location.href='https://storage.appilix.com/uploads/app-apk-660a6ec0b839b-1711959744.apk'" class="btn btn-primary">Download for Android</button>
-
-<!-- For iOS -->
-<button onclick="window.location.href='https://warehouse.appilix.com/uploads/app-ipa-660a6f91c5ea7-1711959953.ipa'" class="btn btn-primary">Download for iOS</button>
-                                                <p class="mt-3 text-center">
-    IPA File (Install using Scarlet or AltStore or similar tools):
                                                 </p>
                                                 
                                                 <div class="d-flex justify-content-center">
@@ -120,6 +114,12 @@
                                                     </ul>
                                                 </div>
                                                 <p class="mt-3 text-center">
+                                                    <button onclick="window.location.href='https://storage.appilix.com/uploads/app-apk-660a6ec0b839b-1711959744.apk'" class="btn btn-primary">Download for Android</button>
+
+<!-- For iOS -->
+<button onclick="window.location.href='https://warehouse.appilix.com/uploads/app-ipa-660a6f91c5ea7-1711959953.ipa'" class="btn btn-primary">Download for iOS</button>
+                                                <p class="mt-3 text-center">
+    IPA File (Install using Scarlet or AltStore or similar tools)
                                                     <!-- Don’t have an account? <a href="./Register_to_CustCount" class="text-underline">Click here to sign up.</a> -->
                                                 </p>
                                             </form>
