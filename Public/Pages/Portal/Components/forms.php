@@ -85,19 +85,22 @@ if (isset($action)) {
             echo '<input type="hidden" name="role" value="' . (isset($_POST['role']) ? $_POST['role'] : '') . '" >';
 
             // Additional fields for 'EDIT_USER'
-            echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
 
 
             if (isset($_POST['role'])) {
                 if ($_POST['role'] == 'Supervisor' || $_POST['role'] == 'Agent') {
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="page" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-                } elseif ($_POST['role'] == 'Manager' || $_POST['role'] == 'User') {
+                } elseif ($_POST['role'] == 'Manager') {
                     echo '<label for="pagename">Page Name</label>';
                     echo '<select class="form-select" id="pagename" name="page" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
-                } else {
-                    echo "Invalid attempt";
+                } elseif($_POST['role'] == 'User'){
+                    echo $fbLink = field("Facebook Link", "text", "fb_link", "Enter Your Facebook Link", isset($_POST['fb_link']) ? $_POST['fb_link'] : '');
+                    echo '<label for="pagename">Page Name</label>';
+                    echo '<select class="form-select" id="pagename" name="page" onchange="showOtherField(this, \'cashAppname-other\')">' . $pageopt . '</select>';
+
                 }
+                
             }
 
 
