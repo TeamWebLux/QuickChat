@@ -46,7 +46,7 @@
         date_default_timezone_set($selectedTimezone);
     }
         if($_SESSION['time_filter']==""){
-            $_SESSION['time_filter']=="Custom"
+            $_SESSION['time_filter']=="Custom";
         }
 
 
