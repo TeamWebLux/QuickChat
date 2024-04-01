@@ -45,7 +45,7 @@
 
 		# Getting User data data
 		$chatWith = getUser($_GET['user'], $conn);
-		
+
 		if (empty($chatWith)) {
 			header("Location: ./Chat_l");
 			exit;
@@ -402,7 +402,7 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
-											$participantName = $chat['sender_username']; // Assuming 'name' is the field containing the participant's name
+									$participantName = $chat['sender_username']; // Assuming 'name' is the field containing the participant's name
 
 									$attachmentHTML = '';
 									if (!empty($chat['attachment'])) {
@@ -448,7 +448,7 @@
 										<?= $chat['created_at'] ?>
 									</small>
 									<small style="font-size: small;" class="d-block">
-										<?= "By ".$participantName ?>
+										<?= "By " . $participantName ?>
 									</small>
 
 								</p>
