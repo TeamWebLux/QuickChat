@@ -46,7 +46,7 @@
         date_default_timezone_set($selectedTimezone);
     }
 
-
+print_r($_SESSION);
 
     ?>
     <!-- css -->
