@@ -305,9 +305,6 @@
 												<img src="../uploads/profile/<?= !empty($chatWith['p_p']) ? $chatWith['p_p'] : '07.png' ?>" class="w-15 rounded-circle">
 												<h3 class="fs-xs m-2">
 													<?= $conversation['name'] ?><br>
-													<?php if (!empty($conversation['unread_messages']) && $conversation['unread_messages'] > 0) { ?>
-														<div class="unread-messages"><?= $conversation['unread_messages'] ?></div>
-													<?php } ?>
 
 													<small>
 														<?php
@@ -316,6 +313,10 @@
 													</small>
 												</h3>
 											</div>
+											<?php if (!empty($conversation['unread_messages']) && $conversation['unread_messages'] > 0) { ?>
+												<div class="unread-messages"><?= $conversation['unread_messages'] ?></div>
+											<?php } ?>
+
 											<?php if (last_seen($conversation['last_seen']) == "Active") { ?>
 												<div title="online">
 													<div class="online"></div>
