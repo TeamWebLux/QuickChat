@@ -3,7 +3,7 @@
 function getConversation($user_id, $conn) {
   // SQL query to get all conversations for the current user, including the unread message count
   $sql = "SELECT user_1, user_2, MAX(created_at) as last_message_time, 
-                 SUM(CASE WHEN to_id = ? AND is_opened = 0 THEN 1 ELSE 0 END) as unread_messages
+                 SUM(CASE WHEN to_id = ? AND opened = 0 THEN 1 ELSE 0 END) as unread_messages
           FROM (
               SELECT CASE WHEN from_id = ? THEN to_id ELSE from_id END AS user_1,
                      CASE WHEN to_id = ? THEN from_id ELSE to_id END AS user_2,
