@@ -46,7 +46,7 @@
         date_default_timezone_set($selectedTimezone);
     }
 
-print_r($_SESSION);
+    print_r($_SESSION);
 
     ?>
     <!-- css -->
@@ -125,10 +125,10 @@ print_r($_SESSION);
                     </select>
                     <label for="time_filter">Select Time Filter:</label>
                     <select name="time_filter" id="time_filter">
-                        <option value="1">1 Hour</option>
-                        <option value="2">2 Hours</option>
-                        <option value="24">24 Hours</option>
-                        <option value="custom">Custom</option>
+                        <option value="custom" <?php echo ($_SESSION['time_filter'] == 'custom') ? 'selected' : ''; ?>>ALL</option>
+                        <option value="1" <?php echo ($_SESSION['time_filter'] == '1') ? 'selected' : ''; ?>>1 Hour</option>
+                        <option value="2" <?php echo ($_SESSION['time_filter'] == '2') ? 'selected' : ''; ?>>2 Hours</option>
+                        <option value="24" <?php echo ($_SESSION['time_filter'] == '24') ? 'selected' : ''; ?>>24 Hours</option>
                     </select>
 
 
@@ -165,7 +165,7 @@ print_r($_SESSION);
                         $sql = "SELECT * FROM transaction WHERE branch='$u'";
                         unset($_SESSION['branch']);
                     } else {
-                        unset( $_SESSION['u'], $_SESSION['r'], $_SESSION['page'], $_SESSION['branch']);
+                        unset($_SESSION['u'], $_SESSION['r'], $_SESSION['page'], $_SESSION['branch']);
                         $sql = "SELECT * FROM transaction WHERE 1=1"; // Always true condition to start the WHERE clause
                     }
 
@@ -187,7 +187,7 @@ print_r($_SESSION);
                         $start_date = $_SESSION['start_date'];
                         $sql .= " AND created_at >= '$start_date 00:00:00'";
                     }
-                    if (isset($_SESSION['time_filter']) && $_SESSION!="") {
+                    if (isset($_SESSION['time_filter']) && $_SESSION != "") {
                         $timeFilter = $_SESSION['time_filter'];
                         if ($timeFilter === '1') {
                             $sql .= " AND created_at >= NOW() - INTERVAL 1 HOUR";
@@ -201,7 +201,7 @@ print_r($_SESSION);
                         }
                     }
                     echo $sql;
-                                $stmt = $conn->prepare($sql);
+                    $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
                     $stmt->execute();
 
