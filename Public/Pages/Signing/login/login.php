@@ -119,7 +119,7 @@
 <!-- For iOS -->
 <button onclick="window.location.href='https://warehouse.appilix.com/uploads/app-ipa-660a6f91c5ea7-1711959953.ipa'" class="btn btn-primary">Download for iOS</button>
                                                 <p class="mt-3 text-center">
-    IPA File (Install using Scarlet or AltStore or similar tools)
+    For iOS Install using Scarlet or AltStore or similar tools
                                                     <!-- Don’t have an account? <a href="./Register_to_CustCount" class="text-underline">Click here to sign up.</a> -->
                                                 </p>
                                             </form>
