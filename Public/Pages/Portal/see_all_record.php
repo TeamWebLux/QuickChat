@@ -46,7 +46,6 @@
         date_default_timezone_set($selectedTimezone);
     }
 
-    print_r($_SESSION);
 
     ?>
     <!-- css -->
@@ -200,7 +199,7 @@
                             // Example: $customStartTime = $_GET['custom_start_time']; $customEndTime = $_GET['custom_end_time'];
                         }
                     }
-                    echo $sql;
+                    // echo $sql;
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
                     $stmt->execute();
