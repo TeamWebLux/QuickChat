@@ -39,7 +39,7 @@
             $_SESSION[$key] = $value;
         }
     }
-    $_SESSION['timezone'] = 'America/New_York';
+    // $_SESSION['timezone'] = 'America/New_York';
     if (isset($_SESSION['timezone'])) {
         $selectedTimezone = $_SESSION['timezone'];
         // Set the default timezone to the selected timezone
