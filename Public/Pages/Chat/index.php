@@ -225,6 +225,15 @@
 			padding: 2px 6px;
 			margin-left: 5px;
 			vertical-align: top;
+			float: right;
+			/* Add float right to move it to the right side */
+			margin-right: 10px;
+			/* Adjust as needed for spacing from the right edge */
+		}
+
+		.d-flex.align-items-center {
+			flex-grow: 1;
+			/* Ensure the container takes all available space */
 		}
 	</style>
 
