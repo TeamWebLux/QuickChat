@@ -121,21 +121,7 @@
                             </div>
                             <div class="card-body">
                                 <form action="" method="POST">
-                                    <select class="select2-basic-single js-states form-select form-control" name="ref" id="userSelect" style="width: 100%;" required>
-                                        <option value="" disabled hidden>Select CashAPP</option>
-                                        <option name="ref" value="percent">By Percentage </option>
-                                        <option name="ref" value="amount">By Amount </option>
-                                    </select>
 
-
-                                    <div class="mb-3">
-                                        <label for="referralPercentage" class="form-label">Referral Bonus </label>
-                                        <input type="text" class="form-control" id="referralPercentage" name="referralPercentage" required value="<?php echo htmlspecialchars($referralPercentage); ?>">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="affiliatePercentage" class="form-label">Affiliate Bonus </label>
-                                        <input type="text" class="form-control" id="affiliatePercentage" name="affiliatePercentage" required value="<?php echo htmlspecialchars($affiliatePercentage); ?>">
-                                    </div>
                                     <div class="mb-3">
                                         <label for="minimum" class="form-label">Minimum Withdraw</label>
                                         <input type="text" class="form-control" id="minimum" name="minimum" required value="<?php echo htmlspecialchars($minimum); ?>">
