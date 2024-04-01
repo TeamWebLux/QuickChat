@@ -402,7 +402,6 @@
 					         rounded p-2 mb-1">
 									<?= linkify($chat['message']) ?>
 									<?php
-									$participantName = $chat['sender_username']; // Assuming 'name' is the field containing the participant's name
 
 									$attachmentHTML = '';
 									if (!empty($chat['attachment'])) {
@@ -447,9 +446,13 @@
 									<small style="font-size: x-small;" class="d-block">
 										<?= $chat['created_at'] ?>
 									</small>
-									<small style="font-size: small;" class="d-block">
-										<?= "By " . $participantName ?>
-									</small>
+									<?php
+									// Check if 'sender_username' is set and not empty for the current chat
+									if (isset($chat['sender_username']) && !empty($chat['sender_username'])) {
+										$participantName = $chat['sender_username']; // Retrieve the participant's name
+										echo "<small style=\"font-size: small;\" class=\"d-block\">By " . htmlspecialchars($participantName) . "</small>";
+									}
+									?>
 
 								</p>
 						<?php }
