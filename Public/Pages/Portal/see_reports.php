@@ -77,8 +77,8 @@
 
                         if (isset($_POST)) {
                          
-                            $condition = $_POST['field'];
-                            $query = $_POST['condtion'];
+                            $condition = $_POS_SESSIONT['field'];
+                            $query = $_SESSION['condtion'];
                             $sql = "select * from transaction where $condition='$query'";
                             $result = $conn->query($sql);
                         }
