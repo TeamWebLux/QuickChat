@@ -7,7 +7,7 @@ function getConversation($user_id, $conn) {
           FROM (
               SELECT CASE WHEN from_id = ? THEN to_id ELSE from_id END AS user_1,
                      CASE WHEN to_id = ? THEN from_id ELSE to_id END AS user_2,
-                     created_at, to_id, is_opened
+                     created_at, to_id, opened
               FROM chats
               WHERE from_id = ? OR to_id = ?
           ) AS derived_table
