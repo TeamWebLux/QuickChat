@@ -72,7 +72,7 @@
 
         if ($stmt->execute()) {
             // If you want to show a success message, you can use session or direct echo
-            $_SESSION['toast'] = ['type' => 'success', 'message' => 'Bonus Updated Sucessfully.'];
+            $_SESSION['toast'] = ['type' => 'success', 'message' => 'Minimum Updated Sucessfully.'];
             header("Location: " . $_SERVER['PHP_SELF']);
             exit();
         } else {
