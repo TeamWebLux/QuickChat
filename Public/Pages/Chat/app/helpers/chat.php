@@ -20,6 +20,7 @@ function getChats($id_1, $id_2, $conn)
                 WHERE (chats.from_id = ? OR chats.to_id = ?)
                 ORDER BY chats.chat_id ASC";
         $params = [$id_2, $id_2];
+
     } else {
         $sql = "SELECT * FROM chats
                 WHERE (from_id = ? AND to_id = ?)
@@ -27,7 +28,7 @@ function getChats($id_1, $id_2, $conn)
                 ORDER BY chat_id ASC";
         $params = [$id_1, $id_2, $id_2, $id_1];
     }
-
+echo $sql;
     // Prepare and execute SQL statement
     $stmt = $conn->prepare($sql);
     $stmt->execute($params);
