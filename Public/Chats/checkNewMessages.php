@@ -8,7 +8,6 @@ ob_start();
 // Assuming session_start() is required if you're using $_SESSION
 session_start();
 $role=$_SESSION['role'];
-if($role!='User'){
 
 
 // Set the content type to application/json
@@ -39,4 +38,3 @@ ob_end_clean();
 // Now, output the JSON response
 echo json_encode($response);
 
-}
