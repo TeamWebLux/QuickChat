@@ -26,9 +26,8 @@ function getChats($id_1, $id_2, $conn)
                 WHERE (from_id = ? AND to_id = ?)
                 OR    (to_id = ? AND from_id = ?)
                 ORDER BY chat_id ASC";
-        $params = [$id_1, $id_2, $id_2, $id_1];
+        $params = [$id_1, $id_2, $id_1, $id_2];
     }
-echo $sql;
     // Prepare and execute SQL statement
     $stmt = $conn->prepare($sql);
     $stmt->execute($params);
