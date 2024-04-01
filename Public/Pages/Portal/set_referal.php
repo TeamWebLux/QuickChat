@@ -190,7 +190,7 @@
                                                     <td><?= htmlspecialchars($row['id']); ?></td>
                                                     <td><?= htmlspecialchars($row['name']); ?></td>
                                                     <td><?= htmlspecialchars($row['refered_by']); ?></td>
-                                                    <td><?= !empty($row['afilated_by']) ? htmlspecialchars($row['afilated_by']) : "no"; ?></td>
+                                                    <td><?= !empty($row['afilated_by']) ? htmlspecialchars($row['afilated_by']) : "NO"; ?></td>
                                                     <td><?= htmlspecialchars($row['created_at']);  ?></td>
                                                     
                                                     <td> <a href="./Add_Refer?u=<?php $username=$row['refered_by']; echo $username; ?>" style="text-decoration: none;">
