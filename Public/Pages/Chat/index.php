@@ -215,6 +215,17 @@
 			overflow-y: auto;
 			max-height: 400px;
 		}
+
+		.unread-messages {
+			display: inline-block;
+			background-color: green;
+			color: white;
+			font-size: 0.8em;
+			border-radius: 50%;
+			padding: 2px 6px;
+			margin-left: 5px;
+			vertical-align: top;
+		}
 	</style>
 
 
@@ -285,9 +296,9 @@
 												<img src="../uploads/profile/<?= !empty($chatWith['p_p']) ? $chatWith['p_p'] : '07.png' ?>" class="w-15 rounded-circle">
 												<h3 class="fs-xs m-2">
 													<?= $conversation['name'] ?><br>
-													<small>
-														Unread Messages: <?= $conversation['unread_messages'] ?? 0; ?>
-													</small>
+													<?php if (!empty($conversation['unread_messages']) && $conversation['unread_messages'] > 0) { ?>
+														<span class="unread-messages"><?= $conversation['unread_messages'] ?></span>
+													<?php } ?>
 
 													<small>
 														<?php
