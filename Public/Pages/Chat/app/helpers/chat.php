@@ -4,21 +4,22 @@ function getChats($id_1, $id_2, $conn)
 {
     // Get the role of the second user
     $data = getUserDataByUsername($id_2, $conn);
+    $role = $data['role'];
     $data2=getUserDataByUsername($id_1,$conn);
     $roleu=$data2['role'];
-    $role = $data['role'];
+
 
     // Define the initial SQL query and parameters based on the user role
     if ($role == 'User' && $roleu!='User') {
         $sql = "SELECT chats.*, 
-        sender.username AS sender_username, 
-        receiver.username AS receiver_username
-        FROM chats
-        LEFT JOIN user AS sender ON chats.from_id = sender.id
-        LEFT JOIN user AS receiver ON chats.to_id = receiver.id
-        WHERE (chats.from_id = ? AND chats.to_id = ?) OR (chats.to_id = ? AND chats.from_id = ?)
-        ORDER BY chats.chat_id ASC";
-        $params = [$id_1, $id_2, $id_1, $id_2];
+                sender.username AS sender_username, 
+                receiver.username AS receiver_username
+                FROM chats
+                LEFT JOIN user AS sender ON chats.from_id = sender.id
+                LEFT JOIN user AS receiver ON chats.to_id = receiver.id
+                WHERE (chats.from_id = ? OR chats.to_id = ?)
+                ORDER BY chats.chat_id ASC";
+        $params = [$id_2, $id_2];
     } else {
         $sql = "SELECT * FROM chats
                 WHERE (from_id = ? AND to_id = ?)
