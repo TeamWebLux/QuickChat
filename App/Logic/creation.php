@@ -289,7 +289,7 @@ class Creation
         if (isset($_POST)) {
             $username = $_POST['username'];
             $cashoutamount = $_POST['reedemamount'];
-            $fbid = $_POST['pagename'];
+            // $fbid = $_POST['pagename'];
             $accessamount = $_POST['excessamount'];
             $platformName = ($_POST['platformname'] !== 'other') ? $_POST['platformname'] : $_POST['platformname_other'];
             $cashupName = ($_POST['cashAppname'] !== 'other') ? $_POST['cashAppname'] : $_POST['cashAppname_other'];
