@@ -817,7 +817,7 @@ class Creation
 
         try {
             // Fetch current balances
-            $stmt = $this->conn->prepare("SELECT current_balance FROM platform WHERE username = ?");
+            $stmt = $this->conn->prepare("SELECT current_balance FROM platform WHERE name = ?");
             $stmt->bind_param("s", $platform);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -825,7 +825,7 @@ class Creation
             $platformBalance = $row['current_balance'];
             $stmt->close();
 
-            $stmt = $this->conn->prepare("SELECT current_balance FROM cashapp WHERE username = ?");
+            $stmt = $this->conn->prepare("SELECT current_balance FROM cashapp WHERE name = ?");
             $stmt->bind_param("s", $cashapp);
             $stmt->execute();
             $result = $stmt->get_result();
