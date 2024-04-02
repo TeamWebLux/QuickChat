@@ -298,17 +298,18 @@ class Creation
             $type = "Credit";
             $by_role = $this->srole;
             $by_username = $this->susername;
-            $userData=$this->getUserDataByUsername($username);
-            $branchId=$userData['branchname'];
-            $pagename=$userData['pagename'];
+            $userData = $this->getUserDataByUsername($username);
+            $branchId = $userData['branchname'];
+            $pagename = $userData['pagename'];
 
 
             $sql = "Insert into transaction (username,redeem,page,branch,excess,cashapp,platform,tip,type,remark,by_u,by_role) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             if ($stmt = mysqli_prepare($this->conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sississsssss", $username, $cashoutamount, $pagename,$branchId, $accessamount, $cashupName, $platformName, $tip, $type, $remark, $by_username,$by_role);
+                mysqli_stmt_bind_param($stmt, "sississsssss", $username, $cashoutamount, $pagename, $branchId, $accessamount, $cashupName, $platformName, $tip, $type, $remark, $by_username, $by_role);
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Reedem Added Sucessfully '];
-
+                    $this->updateBalances($type, $cashoutamount, $platformName, $cashupName, $username, $by_username);
+                    exit();
                     echo "Transaction added successfully. Redirecting...<br>";
                     header("Location: ../../index.php/Portal_User_Management");
                     exit();
@@ -329,7 +330,7 @@ class Creation
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Validate input fields
-            if (empty($_POST['username']) || empty($_POST['platformname']) || empty($_POST['cashAppname']) ) {
+            if (empty($_POST['username']) || empty($_POST['platformname']) || empty($_POST['cashAppname'])) {
                 echo "Validation failed. Redirecting...<br>";
                 echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
 
@@ -349,10 +350,10 @@ class Creation
             $byId = 1; // Assuming a default value for byId
             $byUsername = $this->susername;
             $conn = $this->conn;
-            $userData=$this->getUserDataByUsername($username);
-            $branchId=$userData['branchname'];
-            $pagename=$userData['pagename'];
-            $byrole=$this->srole;
+            $userData = $this->getUserDataByUsername($username);
+            $branchId = $userData['branchname'];
+            $pagename = $userData['pagename'];
+            $byrole = $this->srole;
 
 
 
@@ -362,7 +363,7 @@ class Creation
                     VALUES (?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?, NOW(), NOW())";
 
             if ($stmt = $this->conn->prepare($sql)) {
-                $stmt->bind_param("sssssssssssss", $username, $recharge, $pageId, $pagename, $platform, $branchId, $cashName, $bonus, $remark, $byId,$byrole, $byUsername, $type);
+                $stmt->bind_param("sssssssssssss", $username, $recharge, $pageId, $pagename, $platform, $branchId, $cashName, $bonus, $remark, $byId, $byrole, $byUsername, $type);
 
                 if ($stmt->execute()) {
                     $_SESSION['toast'] = ['type' => 'success', 'message' => 'Recharge Added Sucessfully '];
@@ -596,12 +597,13 @@ class Creation
     // exit();
 
     public function EditBranch()
-    {print_r($_POST);
+    {
+        print_r($_POST);
         $name = $this->conn->real_escape_string($_POST['name']);
         $status = isset($_POST['status']) ? 1 : 0; // Assuming 'status' is a checkbox
         $bid = $_POST['bid'];
         echo $bid;
-        
+
 
         $sql = "UPDATE branch SET name=?, status=?, updated_at=NOW() WHERE bid=?";
 
@@ -793,9 +795,6 @@ class Creation
 
     private function findParentId($userId, $userRole)
     {
-        // Logic to find the parent ID based on current user role and ID
-        // This could involve querying the tree table to find the appropriate parent
-        // For simplicity, return a default or queried parent ID
         return $userId; // Placeholder return
     }
 
@@ -811,6 +810,61 @@ class Creation
 
         return $count == 0; // If count is 0, the username is unique
     }
+    public function updateBalances($type, $amount, $platform, $cashapp, $username, $by_username)
+    {
+        // Start transaction
+        $this->conn->begin_transaction();
+
+        try {
+            // Fetch current balances
+            $stmt = $this->conn->prepare("SELECT current_balance FROM platform WHERE username = ?");
+            $stmt->bind_param("s", $platform);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $platformBalance = $row['current_balance'];
+            $stmt->close();
+
+            $stmt = $this->conn->prepare("SELECT current_balance FROM cashapp WHERE username = ?");
+            $stmt->bind_param("s", $cashapp);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $cashappBalance = $row['current_balance'];
+            $stmt->close();
+
+            // Calculate new balances based on the type
+            if (strtolower($type) === 'debit') {
+                $newPlatformBalance = $platformBalance - $amount;
+                $newCashappBalance = $cashappBalance + $amount;
+            } elseif (strtolower($type) === 'credit') {
+                $newPlatformBalance = $platformBalance + $amount;
+                $newCashappBalance = $cashappBalance - $amount;
+            } else {
+                throw new Exception('Invalid type specified.');
+            }
+
+            // Update balances in the database
+            $stmt = $this->conn->prepare("UPDATE platform SET current_balance = ? WHERE name = ?");
+            $stmt->bind_param("ds", $newPlatformBalance, $platform);
+            $stmt->execute();
+            $stmt->close();
+
+            $stmt = $this->conn->prepare("UPDATE cashapp SET current_balance = ? WHERE name = ?");
+            $stmt->bind_param("ds", $newCashappBalance, $cashapp);
+            $stmt->execute();
+            $stmt->close();
+
+            // Commit transaction
+            $this->conn->commit();
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            $this->conn->rollback();
+            // Ideally, log the error or handle it as per your error management policy
+            throw $e;
+        }
+    }
+
 
     private function sanitizeInput($input)
     {
