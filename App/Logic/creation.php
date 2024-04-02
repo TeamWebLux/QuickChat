@@ -86,12 +86,12 @@ class Creation
             }
         }
     }
-    public function createRecord($rtname, $name, $namef, $amount, $type, $addedBy,$forname="", $openingBalance, $closingBalance, $remark)
+    public function createRecord($rtname, $name, $namef, $amount, $type, $addedBy, $openingBalance, $closingBalance, $remark)
     {
         $sql = "INSERT INTO $rtname ($name, amount, type, by_name,for_name, opening_balance, closing_balance, created_at, updated_at, remark) 
         VALUES (?, ?, ?,?, ?, ?, ?, NOW(), NOW(), ?)";
         if ($stmt = $this->conn->prepare($sql)) {
-            $stmt->bind_param("sdsssdss", $namef, $amount, $type, $addedBy,$forname, $openingBalance, $closingBalance, $remark);
+            $stmt->bind_param("sdsssdss", $namef, $amount, $type, $addedBy,"", $openingBalance, $closingBalance, $remark);
 
             if ($stmt->execute()) {
                 $_SESSION['toast'] = ['type' => 'success', 'message' => 'Platform recharged successfully.'];
