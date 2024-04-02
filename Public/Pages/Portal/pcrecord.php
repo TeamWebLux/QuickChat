@@ -170,7 +170,6 @@
                             }
                             // }
                             $sql .= " ORDER BY created_at DESC";
-                            echo $sql;
                             $result = $conn->query($sql);
 
                             // if (isset($_POST)) {
