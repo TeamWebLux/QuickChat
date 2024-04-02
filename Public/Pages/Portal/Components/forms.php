@@ -58,8 +58,8 @@ if (isset($action)) {
             }
             // echo select("Sub Section", "condtion", "condtion", $branchOptions, isset($_POST['condtion']) ? $_POST['condtion'] : '');
 
-            echo $name = field("Name", "text", "fullname", "Enter Your Name", isset($row['name']) ? $row['name'] : '','required','readonly');
-            echo $username = field("Username", "text", "username", "Enter Your Username", isset($row['username']) ? $row['username'] : '');
+            echo $name = field("Name", "text", "fullname", "Enter Your Name", isset($row['name']) ? $row['name'] : '');
+            echo $username = field("Username", "text", "username", "Enter Your Username", isset($row['username']) ? $row['username'] : '','required','readonly');
             echo $password = field("Password", "password", "password", "Enter Your Password", isset($row['password']) ? $row['password'] : '');
             echo '<input type="hidden" name="role" value="' . (isset($row['role']) ? $row['role'] : '') . '" >';
             if (isset($row['role'])) {
