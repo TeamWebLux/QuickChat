@@ -602,7 +602,7 @@ class Creation
         $bid = $_POST['bid'];
         echo $bid;
 
-        $sql = "UPDATE branch SET name=?, status=?, updated_at=NOW() WHERE bid=?";
+        $sql = "UPDATE branch SET name=?, status=?, updated_at=NOW() WHERE name=?";
 
         if ($stmt = $this->conn->prepare($sql)) {
             $stmt->bind_param("sii", $name, $status, $bid);
