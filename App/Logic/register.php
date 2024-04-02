@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "register") {
     $conn->close();
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && $action == "editregister") {
     print_r($_POST);
-    $fullname = trim($_POST['name']);
+    $fullname = trim($_POST['fullname']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
