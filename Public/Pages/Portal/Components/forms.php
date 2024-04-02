@@ -198,10 +198,9 @@ if (isset($action)) {
         echo $Cancel;
         echo $formend;
     } else if ($action == "DEPOSIT" && ($role != "User")) {
-        echo "Current URL: " . $_SERVER['REQUEST_URI'] . "<br>";
 
-        $title = "Reedem Details";
-        $heading = "Fill in the Redeem Details";
+        $title = "Recharge Details";
+        $heading = "Fill in the Recharge Details";
         $actionUrl = "../App/Logic/creation.php?action=Deposit";
         echo fhead($title, $heading, $actionUrl);
         if (isset($_GET['u'])) {
