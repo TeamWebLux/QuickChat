@@ -1,10 +1,10 @@
 <?php
 ob_start();
+session_start();
 
 use function PHPSTORM_META\type;
 
 include "../db/db_connect.php";
-session_start();
 class Creation
 {
     private $susername, $srole;
