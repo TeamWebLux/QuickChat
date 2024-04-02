@@ -416,7 +416,7 @@ if (isset($action)) {
             echo '<div class="form-group"> <label for="active">Active</label> <input type="checkbox" id="active" name="status" value="1" ' . $statusChecked . '> </div>';
 
             $bid = $row['bid'];
-            echo '<input type="hidden" class="form-control" name"bid" value="'.$bid.'">';
+            echo '<input type="hidden" class="form-control" name="bid" value="'.$bid.'">';
 
             echo $Submit;
             echo $Cancel;
