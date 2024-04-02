@@ -601,6 +601,7 @@ class Creation
         $status = isset($_POST['status']) ? 1 : 0; // Assuming 'status' is a checkbox
         $bid = $_POST['bid'];
         echo $bid;
+        exit();
 
         $sql = "UPDATE branch SET name=?, status=?, updated_at=NOW() WHERE bid=?";
 
