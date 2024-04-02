@@ -596,7 +596,7 @@ class Creation
     // exit();
 
     public function EditBranch()
-    {
+    {print_r($_POST);
         $name = $this->conn->real_escape_string($_POST['name']);
         $status = isset($_POST['status']) ? 1 : 0; // Assuming 'status' is a checkbox
         $bid = $_POST['bid'];
