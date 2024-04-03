@@ -197,7 +197,7 @@ if (isset($action)) {
         echo $Submit;
         echo $Cancel;
         echo $formend;
-    // } else if ($action == "DEPOSIT" && ($role != "User")) {
+    } else if ($action == "DEPOSIT" && ($role != "User")) {
 
         $title = "Recharge Details";
         $heading = "Fill in the Recharge Details";
