@@ -215,6 +215,19 @@
                             <span class="mini-icon">-</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link  <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/See_Redeem_Request') echo 'active';  ?>" href="../index.php/See_Redeem_Request">
+                            <i class="icon">
+                                <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                    </g>
+                                </svg>
+                            </i>
+                            <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Calender" data-bs-placement="right">C</i>
+                            <span class="item-name">See Redeem Request</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-special" role="button" aria-expanded="false" aria-controls="sidebar-special">
