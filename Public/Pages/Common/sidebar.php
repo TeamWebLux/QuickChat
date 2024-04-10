@@ -315,7 +315,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/User_Report') echo 'active';  ?>  " aria-current="page" href="../index.php/User_Report">
+                        <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/CustCount/index.php/Redeem_Request') echo 'active';  ?>  " aria-current="page" href="../index.php/Redeem_Request">
                             <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
                                 <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.34933 14.8577C5.38553 14.8577 2 15.47 2 17.9173C2 20.3665 5.364 20.9999 9.34933 20.9999C13.3131 20.9999 16.6987 20.3876 16.6987 17.9403C16.6987 15.4911 13.3347 14.8577 9.34933 14.8577Z" fill="currentColor"></path>
