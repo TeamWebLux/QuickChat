@@ -115,7 +115,7 @@
             $result = mysqli_query($conn, $query);
 
             if (mysqli_num_rows($result) > 0) {
-                // Output data of each row
+                echo '<div class="row">'; // Start the Bootstrap row
                 while ($row = mysqli_fetch_assoc($result)) {
                     $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
                     $content = htmlspecialchars($row["content"]);
@@ -124,14 +124,16 @@
 
                     // Display the data in a Bootstrap card
                     echo "
-        <div class='card' style='width: 18rem;'>
-            <img src='$imagePath' class='card-img-top' alt='...'>
-            <div class='card-body'>
-                <h5 class='card-title'>$title</h5>
-                <p class='card-text'>$content</p>
-            </div>
-        </div>
-        ";
+                    <div class='col-md-4'> <!-- Adjust the column size as needed -->
+                        <div class='card'>
+                            <img src='$imagePath' class='card-img-top' alt='$title'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>$title</h5>
+                                <p class='card-text'>$content</p>
+                            </div>
+                        </div>
+                    </div>
+                    ";
                 }
             } else {
                 echo "No results found.";
