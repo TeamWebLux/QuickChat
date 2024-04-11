@@ -61,9 +61,14 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         <?php
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
-$page=$_SESSION['page'];
-        $sql = "SELECT * FROM user WHERE Role = 'User' AND pagename='$page'";
+        $role = $_SESSION['role'];
+        if ($role == 'Admin') {
+            $sql = "SELECT * FROM user WHERE Role = 'User'";
+        } else {
+            $page = $_SESSION['page'];
+            $sql = "SELECT * FROM user WHERE Role = 'User' AND pagename='$page'";
 
+        }
         $result = $conn->query($sql);
 
         // Check if there are results
@@ -134,7 +139,7 @@ $page=$_SESSION['page'];
                             ?>
                                 <div class="card-body">
                                     <div class="custom-table-effect table-responsive  border rounded">
-                                    <table class="table mb-0" id="example" >
+                                        <table class="table mb-0" id="example">
                                             <thead>
                                                 <tr class="bg-white">
                                                     <?php
@@ -194,7 +199,7 @@ $page=$_SESSION['page'];
             </div>
             <?
             include("./Public/Pages/Common/footer.php");
-      
+
             ?>
 
     </main>
