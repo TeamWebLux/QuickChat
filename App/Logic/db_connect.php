@@ -1,10 +1,10 @@
 <?php
 ob_start();
 
-$servername = "srv1327.hstgr.io"; // or your server name
-$username = "u306273205_QuickChat";
+$servername = "199.231.187.147"; // or your server name
+$username = "sweeps_trac";
 $password = "Weblux@@1122";
-$dbname = "u306273205_QuickChat";
+$dbname = "sweeps_trac";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
