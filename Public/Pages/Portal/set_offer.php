@@ -43,7 +43,7 @@
             $fileSize = $_FILES['image']['size'];
 
             // Define your target directory and file path
-            $targetDir = "upload/";
+            $targetDir = "uploads/";
             $targetFile = $targetDir . basename($fileName);
 
             // You can add file validation here (e.g., file size, type)
@@ -120,7 +120,7 @@
                     $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
                     $content = htmlspecialchars($row["content"]);
                     $image = htmlspecialchars($row["image"]);
-                    $imagePath = "upload/" . $image; // Adjust the path as needed
+                    $imagePath = "uploads/" . $image; // Adjust the path as needed
 
                     // Display the data in a Bootstrap card
                     echo "
