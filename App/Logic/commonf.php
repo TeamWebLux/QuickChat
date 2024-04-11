@@ -178,23 +178,31 @@ class Commonf
         include "./db_connect.php";
         $response = array('success' => false, 'message' => '');
 
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-            $cashapp = $_POST['cashapp'];
-            $sql = "UPDATE transaction SET cashapp ='$cashapp',cashout_status=1 where tid=$id";
-            // $sql = "SELECT $field FROM $table WHERE $cid=$id";
-            //Select status from platform where bud=1
-            // Change 'id' to your actual primary key column name
-            $result = $conn->query($sql);
+        if (isset($_POST['id'], $_POST['cashapp'])) {
+            // Sanitize user inputs
+            $id = $conn->real_escape_string($_POST['id']);
+            $cashapp = $conn->real_escape_string($_POST['cashapp']);
+            $username = $_SESSION['username'];
 
-            if ($result) {
-                $response['success'] = true;
-                $response['message'] = "Item removed from the cart successfully!";
+            // Prepare the SQL statement using a prepared statement
+            $sql = "UPDATE transaction SET cashapp = ?, cashout_status = 1, by_u = ? WHERE tid = ?";
+            $stmt = $conn->prepare($sql);
+
+            if (!$stmt) {
+                $response['message'] = "Error in preparing SQL statement";
             } else {
-                $response['message'] = "Error in SQL query: " . $conn->error;
+                // Bind parameters and execute the statement
+                $stmt->bind_param("ssi", $cashapp, $username, $id);
+                if ($stmt->execute()) {
+                    $response['success'] = true;
+                    $response['message'] = "Transaction updated successfully!";
+                } else {
+                    $response['message'] = "Error updating transaction: " . $stmt->error;
+                }
+                $stmt->close(); // Close the statement
             }
         } else {
-            $response['message'] = "Missing required parameters (id, table, field)";
+            $response['message'] = "Missing required parameters (id, cashapp)";
         }
 
         // Clear any unwanted output before sending JSON response
