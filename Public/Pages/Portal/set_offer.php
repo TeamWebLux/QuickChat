@@ -138,10 +138,6 @@
                     echo "
                     <div class='col-md-4'> <!-- Adjust the column size as needed -->
                         <div class='card'>
-                        <div class='delete-button-container position-absolute top-0 end-0 p-2'>
-                        <button class='btn btn-danger btn-sm' onclick='deleteOffer($offerId)'>Delete</button>
-                    </div>
-        
                             <img src='$imagePath' class='card-img-top' alt='$title'>
                             <div class='card-body'>
                                 <h5 class='card-title'>$title</h5>
@@ -151,6 +147,7 @@
                     </div>
                     ";
                 }
+                echo '</div>'; // End the Bootstrap row
             } else {
                 echo "No results found.";
             }
