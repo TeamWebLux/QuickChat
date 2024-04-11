@@ -99,7 +99,6 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
 
 
     }
-    echo $rechargeQuery;
     // ... Add more queries as needed
 
     // Execute the queries and fetch the results
