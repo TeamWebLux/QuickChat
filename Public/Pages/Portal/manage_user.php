@@ -61,8 +61,8 @@ if (in_array($role, ['Agent', 'Supervisor', 'Manager', 'Admin'])) {
         <?php
         include './App/db/db_connect.php';
         // include './App/db/db_users.php';
-
-        $sql = "SELECT * FROM user WHERE Role = 'User'";
+$page=$_SESSION['page'];
+        $sql = "SELECT * FROM user WHERE Role = 'User' AND pagename='$page'";
 
         $result = $conn->query($sql);
 
