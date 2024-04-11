@@ -57,14 +57,13 @@
 
                     <?php
                     include "./App/db/db_connect.php";
-                    $role=$_SESSION['role'];
-                    $page=$_SESSION['page'];
-                    if($role==='Admin'){
+                    $role = $_SESSION['role'];
+                    $page = $_SESSION['page'];
 
+                    if ($role === 'Admin') {
                         $sql = "SELECT * FROM transaction WHERE Redeem != 0 AND Redeem IS NOT NULL AND (redeem_status = 0 OR cashout_status = 0)";
-                    }else{
+                    } else {
                         $sql = "SELECT * FROM transaction WHERE Redeem != 0 AND Redeem IS NOT NULL AND (redeem_status = 0 OR cashout_status = 0) AND page='$page'";
-
                     }
                     // echo $sql;
                     $stmt = $conn->prepare($sql);
@@ -219,6 +218,7 @@
                 xhr.send(data);
             }
         }
+
         function cashapp(product_id, table, field, id) {
             const cashAppName = prompt("Please enter the cashapp name:");
 
@@ -279,7 +279,6 @@
                 xhr.send(data);
             }
         }
-
     </script>
 </body>
 
