@@ -120,7 +120,7 @@
                     $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
                     $content = htmlspecialchars($row["content"]);
                     $image = htmlspecialchars($row["image"]);
-                    $imagePath = "./uploads/" . $image; // Adjust the path as needed
+                    $imagePath = "../uploads/" . $image; // Adjust the path as needed
 
                     // Display the data in a Bootstrap card
                     echo "
