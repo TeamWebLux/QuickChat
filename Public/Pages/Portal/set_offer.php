@@ -79,7 +79,8 @@
 .card-img-top {
   width: 100%; /* makes image responsive */
   height: 15vw; /* you can set it to a fixed height if you prefer */
-  object-fit: cover; /* this will make sure to cover the area, cutting off the excess */
+  object-fit: contain; /* ensures the whole image fits within the box */
+  background-color: #FFF; /* or any color that matches your design */
 }
 </style>
 
