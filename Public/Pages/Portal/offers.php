@@ -43,6 +43,25 @@
         include("./Public/Pages/Common/main_content.php");
         ?>
         <div class="content-inner container-fluid pb-0" id="page_layout">
+        <div class="container mt-5">
+        <h2 class="mb-3">Submit Your Details</h2>
+        <form>
+            <div class="mb-3">
+                <label for="titleInput" class="form-label">Title</label>
+                <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+            </div>
+            <div class="mb-3">
+                <label for="contentTextarea" class="form-label">Content</label>
+                <textarea class="form-control" id="contentTextarea" rows="4" placeholder="Enter content"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="formFile">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
             
 
 
