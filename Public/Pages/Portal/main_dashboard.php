@@ -81,10 +81,25 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
         unset($_SESSION['login_error']); // Clear the error message
     }
     include './App/db/db_connect.php';
+    $role=$_SESSION['role'];
+    $username=$_SESSION['username'];
+    if($role =='Admin'){
 
     $rechargeQuery = "SELECT SUM(recharge) AS total_recharge FROM transaction WHERE type='Debit' AND date(created_at) = CURDATE()";
     $redeemQuery = "SELECT SUM(redeem) AS total_redeem FROM transaction WHERE type='Credit' AND  date(created_at) = CURDATE()";
     $activeUsersQuery = "SELECT COUNT(*) AS active_users FROM user WHERE role='User' AND status = 1";
+    }else if($role=='User'){
+        $rechargeQuery = "SELECT SUM(recharge) AS total_recharge FROM transaction WHERE type='Debit' AND username='$username' AND date(created_at) = CURDATE()";
+        $redeemQuery = "SELECT SUM(redeem) AS total_redeem FROM transaction WHERE type='Credit' AND username='$username' AND date(created_at) = CURDATE()";
+        $activeUsersQuery = "SELECT COUNT(*) AS active_users FROM user WHERE role='User' AND status = 1 AND username='$username'";
+    }else{
+        $rechargeQuery = "SELECT SUM(recharge) AS total_recharge FROM transaction WHERE type='Debit' AND by_u='$username' AND date(created_at) = CURDATE()";
+        $redeemQuery = "SELECT SUM(redeem) AS total_redeem FROM transaction WHERE type='Credit' AND by_u='$username' AND date(created_at) = CURDATE()";
+        $activeUsersQuery = "SELECT COUNT(*) AS active_users FROM user WHERE role='User' AND status = 1 AND by='$username'";
+
+
+    }
+    echo $rechargeQuery;
     // ... Add more queries as needed
 
     // Execute the queries and fetch the results
