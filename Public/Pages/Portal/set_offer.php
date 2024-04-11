@@ -117,9 +117,9 @@
             if (mysqli_num_rows($result) > 0) {
                 // Output data of each row
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $title = htmlspecialchars($row["title"]); // Escape special characters to prevent XSS
+                    $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
                     $content = htmlspecialchars($row["content"]);
-                    $image = htmlspecialchars($row["image_name"]);
+                    $image = htmlspecialchars($row["image"]);
                     $imagePath = "uploads/" . $image; // Adjust the path as needed
 
                     // Display the data in a Bootstrap card
