@@ -57,7 +57,15 @@
 
                     <?php
                     include "./App/db/db_connect.php";
-                    $sql = "SELECT * FROM transaction WHERE Redeem != 0 AND Redeem IS NOT NULL AND (redeem_status = 0 OR cashout_status = 0)";
+                    $role=$_SESSION['role'];
+                    $page=$_SESSION['page'];
+                    if($role==='Admin'){
+
+                        $sql = "SELECT * FROM transaction WHERE Redeem != 0 AND Redeem IS NOT NULL AND (redeem_status = 0 OR cashout_status = 0)";
+                    }else{
+                        $sql = "SELECT * FROM transaction WHERE Redeem != 0 AND Redeem IS NOT NULL AND (redeem_status = 0 OR cashout_status = 0) AND page='$page'";
+
+                    }
                     // echo $sql;
                     $stmt = $conn->prepare($sql);
                     // $stmt->bind_param('s', $u);
@@ -82,11 +90,11 @@
                             <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                 <thead>
                                     <tr>
+                                        <th>Timestamp</th>
                                         <th>Username</th>
                                         <th>Amount</th>
                                         <th>Platform Name</th>
                                         <th>Page Name</th>
-                                        <th>Timestamp</th>
                                         <th>By</th>
                                         <th>Platform Redeem</th>
                                         <th>CashOut</th>
@@ -105,11 +113,11 @@
                                     ?>
 
                                         <tr>
+                                            <td><?= $createdAtFormatted ?></td>
                                             <td><?= $row['username'] ?></td>
                                             <td><?= $row['redeem'] ?></td>
                                             <td><?= $row['platform'] ?></td>
                                             <td><?= $row['page'] ?></td>
-                                            <td><?= $createdAtFormatted ?></td>
                                             <td><?= $row['by_u'] ?></td>
                                             <td>
                                                 <?php if ($platformRedeemStatus == 0) : ?>
@@ -120,7 +128,7 @@
                                             </td>
                                             <td>
                                                 <?php if ($cashOutStatus == 0) : ?>
-                                                    <button class="btn btn-warning">Pending</button>
+                                                    <button class="btn btn-warning" onclick="cashapp(<?php echo $id; ?>, 'transaction', 'redeem_status','tid')">Pending</button>
                                                 <?php elseif ($cashOutStatus == 1) : ?>
                                                     <button class="btn btn-success">Done</button>
                                                 <?php endif; ?>
@@ -211,6 +219,67 @@
                 xhr.send(data);
             }
         }
+        function cashapp(product_id, table, field, id) {
+            const cashAppName = prompt("Please enter the cashapp name:");
+
+            if (confirm("Are you sure you want to Activate or Deactivate?")) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "../App/Logic/commonf.php?action=cashapp", true);
+
+                // Set the Content-Type header
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                // Include additional parameters in the data sent to the server
+                const data = "id=" + product_id + "&table=" + table + "&field=" + field + "&cid=" + id + "&cashapp=" + cashAppName;
+
+                // Log the data being sent
+                console.log("Data sent to server:", data);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        console.log("XHR status:", xhr.status);
+
+                        if (xhr.status === 200) {
+                            console.log("Response received:", xhr.responseText);
+
+                            try {
+                                const response = JSON.parse(xhr.responseText);
+
+                                if (response) {
+                                    console.log("Parsed JSON response:", response);
+
+                                    if (response.success) {
+                                        alert("Done successfully!");
+                                        location.reload();
+                                    } else {
+                                        alert("Error : " + response.message);
+                                    }
+                                } else {
+                                    console.error("Invalid JSON response:", xhr.responseText);
+                                    alert("Invalid JSON response from the server.");
+                                }
+                            } catch (error) {
+                                console.error("Error parsing JSON:", error);
+                                alert("Error parsing JSON response from the server.");
+                            }
+                        } else {
+                            console.error("HTTP request failed:", xhr.statusText);
+                            alert("Error: " + xhr.statusText);
+                        }
+                    }
+                };
+
+                // Log any network errors
+                xhr.onerror = function() {
+                    console.error("Network error occurred.");
+                    alert("Network error occurred. Please try again.");
+                };
+
+                // Send the request
+                xhr.send(data);
+            }
+        }
+
     </script>
 </body>
 

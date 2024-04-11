@@ -173,6 +173,36 @@ class Commonf
         header('Content-Type: application/json');
         echo json_encode($response);
     }
+    public function cashapp()
+    {
+        include "./db_connect.php";
+        $response = array('success' => false, 'message' => '');
+
+        if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            $cashapp = $_POST['cashapp'];
+            $sql = "UPDATE transaction SET cashapp ='$cashapp',cashout_status=1 where tid=$id";
+            // $sql = "SELECT $field FROM $table WHERE $cid=$id";
+            //Select status from platform where bud=1
+            // Change 'id' to your actual primary key column name
+            $result = $conn->query($sql);
+
+            if ($result) {
+                $response['success'] = true;
+                $response['message'] = "Item removed from the cart successfully!";
+            } else {
+                $response['message'] = "Error in SQL query: " . $conn->error;
+            }
+        } else {
+            $response['message'] = "Missing required parameters (id, table, field)";
+        }
+
+        // Clear any unwanted output before sending JSON response
+        ob_clean();
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
 }
 
 $com = new Commonf;
@@ -184,4 +214,6 @@ if (isset($_GET['action']) && $_GET['action'] == "status") {
     $com->modifydate();
 } else if (isset($_GET['action']) && $_GET['action'] == "passreset") {
     $com->passreset();
+} else if (isset($_GET['action']) && $_GET['action'] == "cashapp") {
+    $com->cashapp();
 }
