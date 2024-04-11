@@ -43,26 +43,48 @@
         include("./Public/Pages/Common/main_content.php");
         ?>
         <div class="content-inner container-fluid pb-0" id="page_layout">
-        <div class="container mt-5">
-        <h2 class="mb-3">Submit Your Details</h2>
-        <form>
-            <div class="mb-3">
-                <label for="titleInput" class="form-label">Title</label>
-                <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
-            </div>
-            <div class="mb-3">
-                <label for="contentTextarea" class="form-label">Content</label>
-                <textarea class="form-control" id="contentTextarea" rows="4" placeholder="Enter content"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Upload Image</label>
-                <input class="form-control" type="file" id="formFile">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+            <?php
+            include './App/db/db_connect.php';
 
-            
+            // Assuming $conn is your database connection
+            $query = "SELECT id,name, content, image FROM offers";
+            $result = mysqli_query($conn, $query);
+
+            if (mysqli_num_rows($result) > 0) {
+                echo '<div class="row">'; // Start the Bootstrap row
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
+                    $content = htmlspecialchars($row["content"]);
+                    $image = htmlspecialchars($row["image"]);
+                    $id = htmlspecialchars($row["id"]);
+
+                    $imagePath = "../uploads/" . $image; // Adjust the path as needed
+
+                    // Display the data in a Bootstrap card
+                    echo "
+                    <div class='col-md-4'> <!-- Adjust the column size as needed -->
+                        <div class='card position-relative'>
+                            <div class='delete-button-container position-absolute top-0 end-0 p-2'>
+                                <button class='btn btn-danger btn-sm' onclick='delete1(\"{$row["id"]}\", \"offers\", \"id\")'>Delete</button>
+                            </div>
+                            <img src='{$imagePath}' class='card-img-top' alt='{$title}'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>{$title}</h5>
+                                <p class='card-text'>{$content}</p>
+                            </div>
+                        </div>
+                    </div>
+                    ";
+                }
+                echo '</div>'; // End the Bootstrap row
+            } else {
+                echo "No results found.";
+            }
+            ?>
+
+        </div>
+
+
 
 
         </div>
