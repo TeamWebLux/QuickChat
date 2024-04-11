@@ -141,7 +141,7 @@
                     <div class='col-md-4'> <!-- Adjust the column size as needed -->
                         <div class='card'>
                         <div class='delete-button-container position-absolute top-0 end-0 p-2'>
-                        <button class='btn btn-danger btn-sm' onclick='deleteOffer($id)'>Delete</button>
+                        <button class='btn btn-danger btn-sm' onclick='delete1(<?php echo $id; ?>, 'offers','id')'>Delete</button>
                     </div>
         
                             <img src='$imagePath' class='card-img-top' alt='$title'>
@@ -163,6 +163,66 @@
 
         </div>
     </main>
+    <script>
+        function delete1(product_id, table, field) {
+            if (confirm("Are you sure you want to Delete")) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "../App/Logic/commonf.php?action=delete", true);
+
+                // Set the Content-Type header
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                // Include additional parameters in the data sent to the server
+                const data = "id=" + product_id + "&table=" + table + "&field=" + field;
+
+                // Log the data being sent
+                console.log("Data sent to server:", data);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        console.log("XHR status:", xhr.status);
+
+                        if (xhr.status === 200) {
+                            console.log("Response received:", xhr.responseText);
+
+                            try {
+                                const response = JSON.parse(xhr.responseText);
+
+                                if (response) {
+                                    console.log("Parsed JSON response:", response);
+
+                                    if (response.success) {
+                                        alert("Done successfully!");
+                                        location.reload();
+                                    } else {
+                                        alert("Error : " + response.message);
+                                    }
+                                } else {
+                                    console.error("Invalid JSON response:", xhr.responseText);
+                                    alert("Invalid JSON response from the server.");
+                                }
+                            } catch (error) {
+                                console.error("Error parsing JSON:", error);
+                                alert("Error parsing JSON response from the server.");
+                            }
+                        } else {
+                            console.error("HTTP request failed:", xhr.statusText);
+                            alert("Error: " + xhr.statusText);
+                        }
+                    }
+                };
+
+                // Log any network errors
+                xhr.onerror = function() {
+                    console.error("Network error occurred.");
+                    alert("Network error occurred. Please try again.");
+                };
+
+                // Send the request
+                xhr.send(data);
+            }
+        }
+    </script>
     <?php
     include("./Public/Pages/Common/theme_custom.php");
     ?>
