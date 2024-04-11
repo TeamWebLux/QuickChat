@@ -132,12 +132,18 @@
                     $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
                     $content = htmlspecialchars($row["content"]);
                     $image = htmlspecialchars($row["image"]);
+                    $id = htmlspecialchars($row["id"]);
+
                     $imagePath = "../uploads/" . $image; // Adjust the path as needed
 
                     // Display the data in a Bootstrap card
                     echo "
                     <div class='col-md-4'> <!-- Adjust the column size as needed -->
                         <div class='card'>
+                        <div class='delete-button-container position-absolute top-0 end-0 p-2'>
+                        <button class='btn btn-danger btn-sm' onclick='deleteOffer($id)'>Delete</button>
+                    </div>
+        
                             <img src='$imagePath' class='card-img-top' alt='$title'>
                             <div class='card-body'>
                                 <h5 class='card-title'>$title</h5>
