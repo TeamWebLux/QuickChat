@@ -123,7 +123,7 @@
             include './App/db/db_connect.php';
 
             // Assuming $conn is your database connection
-            $query = "SELECT name, content, image FROM offers";
+            $query = "SELECT id,name, content, image FROM offers";
             $result = mysqli_query($conn, $query);
 
             if (mysqli_num_rows($result) > 0) {
