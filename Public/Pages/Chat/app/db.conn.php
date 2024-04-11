@@ -2,14 +2,14 @@
 ob_start();
 
 # server name
-$sName = "199.231.187.147";
+$sName = "srv1327.hstgr.io";
 # user name
-$uName = "sweeps_trac";
+$uName = "u306273205_QuickChat";
 # password
 $pass = "Weblux@@1122";
 
 # database name
-$db_name = "sweeps_trac";
+$db_name = "u306273205_QuickChat";
 
 #creating database connection
 try {
