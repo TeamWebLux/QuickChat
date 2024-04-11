@@ -108,8 +108,10 @@
                 </form>
             </div>
             <?php
+            include './App/db/db_connect.php';
+
             // Assuming $conn is your database connection
-            $query = "SELECT title, content, image_name FROM your_table_name";
+            $query = "SELECT name, content, image FROM offers";
             $result = mysqli_query($conn, $query);
 
             if (mysqli_num_rows($result) > 0) {
