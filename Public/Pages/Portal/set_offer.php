@@ -32,8 +32,8 @@
         // Capture form data
         $title = mysqli_real_escape_string($conn, $_POST['tittle']);
         $content = mysqli_real_escape_string($conn, $_POST['content']);
-        $page=$_SESSION['page'];
-        $by=$_SESSION['username'];
+        $page = $_SESSION['page'];
+        $by = $_SESSION['username'];
 
         // Handle file upload
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
@@ -107,6 +107,34 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
+            <?php
+            // Assuming $conn is your database connection
+            $query = "SELECT title, content, image_name FROM your_table_name";
+            $result = mysqli_query($conn, $query);
+
+            if (mysqli_num_rows($result) > 0) {
+                // Output data of each row
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $title = htmlspecialchars($row["title"]); // Escape special characters to prevent XSS
+                    $content = htmlspecialchars($row["content"]);
+                    $image = htmlspecialchars($row["image_name"]);
+                    $imagePath = "uploads/" . $image; // Adjust the path as needed
+
+                    // Display the data in a Bootstrap card
+                    echo "
+        <div class='card' style='width: 18rem;'>
+            <img src='$imagePath' class='card-img-top' alt='...'>
+            <div class='card-body'>
+                <h5 class='card-title'>$title</h5>
+                <p class='card-text'>$content</p>
+            </div>
+        </div>
+        ";
+                }
+            } else {
+                echo "No results found.";
+            }
+            ?>
 
 
 
