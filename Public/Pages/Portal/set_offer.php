@@ -158,7 +158,7 @@
                             <img src='{$imagePath}' class='card-img-top' alt='{$title}'>
                             <div class='card-body'>
                                 <h5 class='card-title'>{$title}</h5>
-                                <div class='content-collapse' style='max-height: 4.5em; overflow: hidden;'>
+                                <div class='content-collapse'>
                                     <p class='card-text'>{$content}</p>
                                 </div>
                                 <button class='btn btn-link' onclick='expandText(this)'>More</button>
