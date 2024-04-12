@@ -89,9 +89,6 @@
                     echo "
                     <div class='col-md-4'>
                         <div class='card'>
-                            <div class='delete-button-container position-absolute top-0 end-0 p-2'>
-                                <button class='btn btn-danger btn-sm' onclick='delete1(\"$id\", \"offers\", \"id\")'>Delete</button>
-                            </div>
                             <img src='{$imagePath}' class='card-img-top' alt='{$title}'>
                             <div class='card-body'>
                                 <h5 class='card-title'>{$title}</h5>
