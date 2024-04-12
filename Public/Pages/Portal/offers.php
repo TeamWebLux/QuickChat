@@ -62,18 +62,36 @@
 
                     // Display the data in a Bootstrap card
                     echo "
-                    <div class='col-md-4'> <!-- Adjust the column size as needed -->
-                        <div class='card position-relative'>
+                    <div class='col-md-4'>
+                        <div class='card'>
                             <div class='delete-button-container position-absolute top-0 end-0 p-2'>
-                                <button class='btn btn-danger btn-sm' onclick='delete1(\"{$row["id"]}\", \"offers\", \"id\")'>Delete</button>
+                                <button class='btn btn-danger btn-sm' onclick='delete1(\"$id\", \"offers\", \"id\")'>Delete</button>
                             </div>
                             <img src='{$imagePath}' class='card-img-top' alt='{$title}'>
                             <div class='card-body'>
                                 <h5 class='card-title'>{$title}</h5>
-                                <p class='card-text'>{$content}</p>
+                                <div class='content-collapse' style='max-height: 4.5em; overflow: hidden;'>
+                                    <p class='card-text'>{$content}</p>
+                                </div>
+                                <button class='btn btn-link' onclick='expandText(this)'>More</button>
                             </div>
                         </div>
                     </div>
+                    ";
+
+                    echo "
+                    <script>
+                    function expandText(button) {
+                        var content = button.previousElementSibling;
+                        if (button.innerText === 'More') {
+                            content.style.maxHeight = 'none';
+                            button.innerText = 'Less';
+                        } else {
+                            content.style.maxHeight = '4.5em';
+                            button.innerText = 'More';
+                        }
+                    }
+                    </script>
                     ";
                 }
                 echo '</div>'; // End the Bootstrap row
