@@ -29,6 +29,31 @@
 
 
     ?>
+    <style>
+        .card-img-top {
+            width: 100%;
+            /* makes image responsive */
+            height: 15vw;
+            /* you can set it to a fixed height if you prefer */
+            object-fit: contain;
+            /* ensures the whole image fits within the box */
+            background-color: #FFF;
+            /* or any color that matches your design */
+        }
+
+        .content-collapse {
+            max-height: 4.5em;
+            /* Adjust as necessary for the number of lines you want to show */
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .content-collapse:hover {
+            max-height: none;
+            /* When hovered, show all content */
+        }
+    </style>
+
 
 </head>
 
