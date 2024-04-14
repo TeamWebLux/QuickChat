@@ -162,7 +162,7 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
     //  include("./Public/Pages/Common/loader.php");
     ?>
     <!-- loader END -->
-
+ 
     <!-- sidebar  -->
     <?php
     include("./Public/Pages/Common/sidebar.php");
@@ -191,6 +191,63 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
                     </form>
                 </div>
             </div>
+
+            <div class="content-inner container-fluid pb-0" id="page_layout">
+            <?php
+            include './App/db/db_connect.php';
+
+            // Assuming $conn is your database connection
+            $query = "SELECT id,name, content, image FROM offers";
+            $result = mysqli_query($conn, $query);
+
+            if (mysqli_num_rows($result) > 0) {
+                echo '<div class="row">'; // Start the Bootstrap row
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $title = htmlspecialchars($row["name"]); // Escape special characters to prevent XSS
+                    $content = htmlspecialchars($row["content"]);
+                    $image = htmlspecialchars($row["image"]);
+                    $id = htmlspecialchars($row["id"]);
+
+                    $imagePath = "../uploads/" . $image; // Adjust the path as needed
+
+                    // Display the data in a Bootstrap card
+                    echo "
+                    <div class='col-md-4'>
+                        <div class='card'>
+                            <img src='{$imagePath}' class='card-img-top' alt='{$title}'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>{$title}</h5>
+                                <div class='content-collapse'>
+                                <p class='card-text'>{$content}</p>
+                                </div>
+                                <button class='btn btn-link' onclick='expandText(this)'>More</button>
+                            </div>
+                        </div>
+                    </div>
+                    ";
+
+                    echo "
+                    <script>
+                    function expandText(button) {
+                        var content = button.previousElementSibling;
+                        if (button.innerText === 'More') {
+                            content.style.maxHeight = 'none';
+                            button.innerText = 'Less';
+                        } else {
+                            content.style.maxHeight = '4.5em';
+                            button.innerText = 'More';
+                        }
+                    }
+                    </script>
+                    ";
+                }
+                echo '</div>'; // End the Bootstrap row
+            } else {
+                echo "No results found.";
+            }
+            ?>
+
+        </div>
 
             <div class="row">
                 <div class="col-lg-8">
