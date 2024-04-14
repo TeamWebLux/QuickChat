@@ -176,7 +176,7 @@ if (isset($_GET['start_time']) && isset($_GET['end_time'])) {
         <div class="content-inner container-fluid pb-0" id="page_layout">
             <br>
             <br>
-            <button class="btn btn-outline-success rounded-pill mt-2" id="myBtn">End Shift</button>
+            <button class="btn btn-outline-success rounded-pill mt-2" id="myBtn">End the Shift</button>
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
